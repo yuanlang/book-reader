@@ -167,6 +167,10 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
             NSLog("[ReaderViewModel] Playing: \(utterance.text.prefix(50))")
             isPlaying = true
             currentUtteranceText = utterance.text
+            // 同步页面到朗读位置
+            Task {
+                await navigator?.go(to: utterance.locator)
+            }
         case .paused(let utterance):
             NSLog("[ReaderViewModel] Paused: \(utterance.text.prefix(50))")
             isPlaying = false
