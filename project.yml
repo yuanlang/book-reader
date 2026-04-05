@@ -1,0 +1,93 @@
+name: BookReader
+options:
+  bundleIdPrefix: com.bookreader
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""
+
+packages:
+  Readium:
+    url: https://github.com/readium/swift-toolkit.git
+    from: "3.0.0"
+
+targets:
+  BookReader:
+    type: application
+    platform: iOS
+    sources:
+      - path: BookReader
+        excludes:
+          - "Resources/tts-models/model.onnx"
+    settings:
+      base:
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+        INFOPLIST_KEY_UIStatusBarStyle: ""
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        PRODUCT_BUNDLE_IDENTIFIER: com.bookreader.app
+        SWIFT_OBJC_BRIDGING_HEADER: BookReader/Bridging/BookReader-Bridging-Header.h
+        CLANG_CXX_LANGUAGE_STANDARD: "c++17"
+        OTHER_LDFLAGS: ["-lc++"]
+        HEADER_SEARCH_PATHS: ["$(SRCROOT)/BookReader/CppJieba", "$(SRCROOT)/Frameworks/sherpa-onnx.xcframework/$(PLATFORM_NAME:identifier)/Headers"]
+        USER_HEADER_SEARCH_PATHS: ["$(SRCROOT)/BookReader/CppJieba", "$(SRCROOT)/Frameworks/sherpa-onnx.xcframework/$(PLATFORM_NAME:identifier)/Headers"]
+    dependencies:
+      - package: Readium
+        product: ReadiumShared
+      - package: Readium
+        product: ReadiumStreamer
+      - package: Readium
+        product: ReadiumNavigator
+      - framework: Frameworks/sherpa-onnx.xcframework
+        embed: true
+      - framework: Frameworks/onnxruntime.xcframework
+        embed: true
+    entitlements:
+      path: BookReader/BookReader.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
+    info:
+      path: BookReader/Info.plist
+      properties:
+        UIBackgroundModes: ["audio"]
+        CFBundleDisplayName: "阅读器"
+        CFBundleShortVersionString: "1.0.0"
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: "EPUB"
+            LSHandlerRank: Owner
+            LSItemContentTypes: ["org.idpf.epub-container"]
+
+  BookReaderTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - BookReaderTests
+    dependencies:
+      - target: BookReader
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.bookreader.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  BookReaderUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - BookReaderUITests
+    dependencies:
+      - target: BookReader
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.bookreader.app.uitests
+        GENERATE_INFOPLIST_FILE: YES

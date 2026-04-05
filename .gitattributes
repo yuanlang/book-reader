@@ -1,0 +1,4 @@
+BookReader/Resources/tts-models/*.onnx filter=lfs diff=lfs merge=lfs -text
+BookReader/Resources/tts-models/*.bin filter=lfs diff=lfs merge=lfs -text
+Frameworks/onnxruntime.xcframework/**/*.a filter=lfs diff=lfs merge=lfs -text
+Frameworks/sherpa-onnx.xcframework/**/*.a filter=lfs diff=lfs merge=lfs -text
