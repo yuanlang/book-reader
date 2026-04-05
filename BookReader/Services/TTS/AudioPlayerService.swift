@@ -12,7 +12,7 @@ actor AudioPlayerService {
         // Connect player to main mixer with default format
         let format = AVAudioFormat(
             commonFormat: .pcmFormatFloat32,
-            sampleRate: 22050,
+            sampleRate: 24000,
             channels: 1,
             interleaved: false
         )!

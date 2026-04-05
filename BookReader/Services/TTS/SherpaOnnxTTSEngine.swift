@@ -4,7 +4,7 @@ import ReadiumNavigator
 import ReadiumShared
 
 /// TTS engine implementing Readium's TTSEngine protocol,
-/// using sherpa-onnx with vits-zh-hf-theresa for Chinese speech synthesis,
+/// using sherpa-onnx with Kokoro-82M-v1.1-zh for Chinese+English speech synthesis,
 /// and AVSpeechSynthesizer for other languages as fallback.
 final class SherpaOnnxTTSEngine: TTSEngine {
 
@@ -45,9 +45,9 @@ final class SherpaOnnxTTSEngine: TTSEngine {
     var availableVoices: [TTSVoice] {
         [
             TTSVoice(
-                identifier: "theresa-zh-female",
+                identifier: "kokoro-zh-female",
                 language: Language(code: .bcp47("zh-CN")),
-                name: "中文女声 (Theresa)",
+                name: "中文女声 (Kokoro)",
                 gender: .female,
                 quality: .high
             )
@@ -83,7 +83,7 @@ final class SherpaOnnxTTSEngine: TTSEngine {
     }
 
     private func speakChinese(_ text: String) async -> Result<Void, TTSError> {
-        NSLog("[TTSEngine] Chinese text, using Theresa TTS. isModelReady: \(isModelReady)")
+        NSLog("[TTSEngine] Chinese text, using Kokoro TTS. isModelReady: \(isModelReady)")
 
         if isModelReady, let result = bridge.synthesize(text, speed: 1.0) {
             NSLog("[TTSEngine] Synthesis successful, playing audio...")
@@ -97,8 +97,8 @@ final class SherpaOnnxTTSEngine: TTSEngine {
             return .success(())
         }
 
-        // Fallback to system TTS if Theresa TTS fails
-        NSLog("[TTSEngine] Theresa TTS failed, falling back to system TTS")
+        // Fallback to system TTS if Kokoro TTS fails
+        NSLog("[TTSEngine] Kokoro TTS failed, falling back to system TTS")
         return await speakWithSystemTTS(text, languageCode: "zh-CN")
     }
 

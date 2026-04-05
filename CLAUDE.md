@@ -15,7 +15,7 @@
   - ReadiumShared
   - ReadiumStreamer
   - ReadiumNavigator
-- **sherpa-onnx** - 神经网络语音合成引擎
+- **sherpa-onnx** - 神经网络语音合成引擎 (Kokoro TTS)
 - **onnxruntime** - ONNX 推理运行时
 - **CppJieba** - 中文分词
 
@@ -49,7 +49,7 @@ BookReader/
 │       ├── JiebaSegmenter.swift        # 结巴分词封装
 │       └── JiebaContentTokenizer.swift # Readium 分词器
 ├── Resources/
-│   └── tts-models/  # MeloTTS 中文语音模型
+│   └── tts-models/  # Kokoro-82M-v1.1-zh 语音模型
 ├── CppJieba/        # CppJieba C++ 源码
 └── Bridging/
     └── BookReader-Bridging-Header.h
@@ -92,9 +92,10 @@ xcodebuild -project BookReader.xcodeproj -scheme BookReader -destination 'platfo
 - 自定义 `TTSEngine` 协议实现对接 sherpa-onnx
 
 ### 中文 TTS
-- 使用 MeloTTS 模型 (位于 Resources/tts-models/)
-- 通过 Bridging Header 调用 C++ API
-- 中文分词使用 CppJieba 提高朗读质量
+- 使用 Kokoro-82M-v1.1-zh 模型 (位于 Resources/tts-models/)
+- 通过 sherpa-onnx Kokoro 引擎进行语音合成
+- 支持中文+英文双语合成，103个说话人
+- 音频输出采样率 24000 Hz
 
 ### 数据持久化
 - SwiftData 存储书籍信息和阅读进度

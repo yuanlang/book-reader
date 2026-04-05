@@ -1,10 +1,10 @@
 import Foundation
 
 /// Bridge to sherpa-onnx TTS engine using the C API.
-/// Wraps vits-zh-hf-theresa Chinese speech synthesis via sherpa-onnx.
+/// Wraps Kokoro-82M-v1.1-zh Chinese+English speech synthesis via sherpa-onnx.
 final class SherpaOnnxBridge {
     private var tts: OpaquePointer?
-    private(set) var sampleRate: Int32 = 22050
+    private(set) var sampleRate: Int32 = 24000
     private var isInitialized = false
 
     deinit {
@@ -37,15 +37,20 @@ final class SherpaOnnxBridge {
 
         let modelPath = (ttsModelDir as NSString).appendingPathComponent("model.onnx")
         let tokensPath = (ttsModelDir as NSString).appendingPathComponent("tokens.txt")
-        let lexiconPath = (ttsModelDir as NSString).appendingPathComponent("lexicon.txt")
+        let voicesPath = (ttsModelDir as NSString).appendingPathComponent("voices.bin")
+        let dataDirPath = (ttsModelDir as NSString).appendingPathComponent("espeak-ng-data")
 
         NSLog("[TTS] Model path: \(modelPath)")
         NSLog("[TTS] Tokens path: \(tokensPath)")
+        NSLog("[TTS] Voices path: \(voicesPath)")
+        NSLog("[TTS] Data dir: \(dataDirPath)")
         NSLog("[TTS] Model exists: \(fm.fileExists(atPath: modelPath))")
         NSLog("[TTS] Tokens exists: \(fm.fileExists(atPath: tokensPath))")
+        NSLog("[TTS] Voices exists: \(fm.fileExists(atPath: voicesPath))")
 
         guard fm.fileExists(atPath: modelPath),
-              fm.fileExists(atPath: tokensPath) else {
+              fm.fileExists(atPath: tokensPath),
+              fm.fileExists(atPath: voicesPath) else {
             NSLog("[TTS] ERROR: TTS model files not found at: \(ttsModelDir)")
             return false
         }
@@ -53,27 +58,36 @@ final class SherpaOnnxBridge {
         // Keep NSStrings alive for the duration of config setup
         let modelNS = modelPath as NSString
         let tokensNS = tokensPath as NSString
-        let lexiconNS = lexiconPath as NSString
+        let voicesNS = voicesPath as NSString
+        let dataDirNS = dataDirPath as NSString
+
+        // Build lexicon paths (comma-separated for zh + en)
+        var lexiconPaths: [String] = []
+        for name in ["lexicon-us-en.txt", "lexicon-zh.txt"] {
+            let path = (ttsModelDir as NSString).appendingPathComponent(name)
+            if fm.fileExists(atPath: path) { lexiconPaths.append(path) }
+        }
+        let lexiconNS = lexiconPaths.joined(separator: ",") as NSString
 
         var config = SherpaOnnxOfflineTtsConfig()
         memset(&config, 0, MemoryLayout<SherpaOnnxOfflineTtsConfig>.size)
 
-        config.model.vits.model = modelNS.utf8String
-        config.model.vits.tokens = tokensNS.utf8String
-        if fm.fileExists(atPath: lexiconPath) {
-            config.model.vits.lexicon = lexiconNS.utf8String
+        // Use Kokoro model config instead of VITS
+        config.model.kokoro.model = modelNS.utf8String
+        config.model.kokoro.voices = voicesNS.utf8String
+        config.model.kokoro.tokens = tokensNS.utf8String
+        config.model.kokoro.length_scale = 1.0
+
+        if fm.fileExists(atPath: dataDirPath) {
+            config.model.kokoro.data_dir = dataDirNS.utf8String
+        }
+        if lexiconNS.length > 0 {
+            config.model.kokoro.lexicon = lexiconNS.utf8String
         }
 
-        // Set dict directory for Chinese text normalization
-        let dictDirPath = (ttsModelDir as NSString).appendingPathComponent("dict")
-        if fm.fileExists(atPath: dictDirPath) {
-            let dictDirNS = dictDirPath as NSString
-            config.model.vits.dict_dir = dictDirNS.utf8String
-        }
-
-        // Set date/number/phone FSTs
+        // Set date/number/phone FSTs for Chinese text normalization
         var ruleFsts: [String] = []
-        for name in ["date.fst", "number.fst", "phone.fst"] {
+        for name in ["date-zh.fst", "number-zh.fst", "phone-zh.fst"] {
             let path = (ttsModelDir as NSString).appendingPathComponent(name)
             if fm.fileExists(atPath: path) { ruleFsts.append(path) }
         }

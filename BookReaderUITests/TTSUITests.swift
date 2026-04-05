@@ -93,8 +93,8 @@ final class TTSUITests: XCTestCase {
         }
         firstElement.tap()
 
-        // Wait for the book to load (increased time for large TTS model loading)
-        sleep(8)
+        // Wait for the book to load (Kokoro model is ~325MB)
+        sleep(15)
 
         // Find and tap the play button to start TTS
         // The play button is the large play.circle.fill button
@@ -105,8 +105,8 @@ final class TTSUITests: XCTestCase {
         if playButtonQuery.firstMatch.exists {
             playButtonQuery.firstMatch.tap()
 
-            // Wait for TTS model to load (170MB model needs time)
-            sleep(5)
+            // Wait for TTS model to load (Kokoro ~325MB model needs more time)
+            sleep(10)
 
             // After tapping play, the state should change to playing
             // The button should now show as pause
