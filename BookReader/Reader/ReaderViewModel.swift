@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import ReadiumShared
 import ReadiumStreamer
 import ReadiumNavigator
@@ -24,6 +25,10 @@ final class ReaderViewModel {
     private var navigatorDelegate: NavigatorDelegateHandler?
     @ObservationIgnored
     private var isTTSNavigating = false  // Flag to ignore TTS-triggered navigation
+    @ObservationIgnored
+    private var modelContext: ModelContext?
+    @ObservationIgnored
+    private var currentBookId: UUID?
 
     @ObservationIgnored
     private lazy var httpClient = DefaultHTTPClient()
@@ -46,9 +51,15 @@ final class ReaderViewModel {
         return AnyView(ProgressView("加载中..."))
     }
 
-    func open(book: Book) async {
+    func open(book: Book, context: ModelContext) async {
         isLoading = true
         defer { isLoading = false }
+
+        self.modelContext = context
+        self.currentBookId = book.id
+
+        // 查询上次阅读位置
+        let savedLocator = loadSavedLocator(for: book.id, context: context)
 
         do {
             let url = await storage.bookURL(for: book.filePath)
@@ -67,24 +78,37 @@ final class ReaderViewModel {
             self.publication = pub
 
             await MainActor.run {
-                setupNavigator(with: pub)
+                setupNavigator(with: pub, initialLocation: savedLocator)
             }
         } catch {
             errorMessage = "打开书籍失败: \(error.localizedDescription)"
         }
     }
 
+    private func loadSavedLocator(for bookId: UUID, context: ModelContext) -> Locator? {
+        let descriptor = FetchDescriptor<ReadingProgress>(
+            predicate: #Predicate { $0.bookId == bookId }
+        )
+        guard let progress = try? context.fetch(descriptor).first,
+              !progress.locatorJSON.isEmpty,
+              let locator = try? Locator(jsonString: progress.locatorJSON) else {
+            return nil
+        }
+        return locator
+    }
+
     @MainActor
-    private func setupNavigator(with publication: Publication) {
+    private func setupNavigator(with publication: Publication, initialLocation: Locator? = nil) {
         do {
             let navigator = try EPUBNavigatorViewController(
                 publication: publication,
-                initialLocation: nil
+                initialLocation: initialLocation
             )
             self.navigator = navigator
             // Set up navigator delegate to handle page changes
-            let delegate = NavigatorDelegateHandler { [weak self] in
+            let delegate = NavigatorDelegateHandler { [weak self] locator in
                 self?.handlePageChange()
+                self?.saveProgress(locator: locator)
             }
             navigator.delegate = delegate
             self.navigatorDelegate = delegate
@@ -103,6 +127,29 @@ final class ReaderViewModel {
             synthesizer.stop()
             isPlaying = false
             currentUtteranceText = ""
+        }
+    }
+
+    private func saveProgress(locator: Locator) {
+        guard let context = modelContext, let bookId = currentBookId else { return }
+
+        guard let json = locator.jsonString else { return }
+
+        do {
+            let descriptor = FetchDescriptor<ReadingProgress>(
+                predicate: #Predicate { $0.bookId == bookId }
+            )
+            let progress = try context.fetch(descriptor).first ?? ReadingProgress(bookId: bookId)
+            progress.locatorJSON = json
+            progress.progress = locator.locations.totalProgression ?? 0
+            progress.lastUpdated = Date()
+
+            if progress.modelContext == nil {
+                context.insert(progress)
+            }
+            try context.save()
+        } catch {
+            NSLog("[ReaderViewModel] 保存进度失败: \(error)")
         }
     }
 
@@ -225,17 +272,17 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
 
 @MainActor
 private class NavigatorDelegateHandler: NSObject, EPUBNavigatorDelegate {
-    private let onPageChange: @MainActor () -> Void
+    private let onPageChange: @MainActor (Locator) -> Void
 
     @MainActor
-    init(onPageChange: @escaping @MainActor () -> Void) {
+    init(onPageChange: @escaping @MainActor (Locator) -> Void) {
         self.onPageChange = onPageChange
         super.init()
     }
 
     nonisolated func navigator(_ navigator: Navigator, locationDidChange locator: Locator) {
         Task { @MainActor in
-            onPageChange()
+            onPageChange(locator)
         }
     }
 

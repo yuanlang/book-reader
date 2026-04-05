@@ -4,6 +4,7 @@ struct ReaderView: View {
     let book: Book
 
     @State private var viewModel = ReaderViewModel()
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -31,7 +32,7 @@ struct ReaderView: View {
             }
         }
         .task {
-            await viewModel.open(book: book)
+            await viewModel.open(book: book, context: modelContext)
         }
     }
 }
