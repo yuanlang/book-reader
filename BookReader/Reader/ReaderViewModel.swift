@@ -108,8 +108,12 @@ final class ReaderViewModel {
         NSLog("[ReaderViewModel] Current state: \(synthesizer.state)")
         switch synthesizer.state {
         case .stopped:
-            NSLog("[ReaderViewModel] Starting from current location...")
-            synthesizer.start(from: navigator?.currentLocation)
+            NSLog("[ReaderViewModel] Starting from first visible element...")
+            Task {
+                let locator = await navigator?.firstVisibleElementLocator()
+                NSLog("[ReaderViewModel] Locator: \(locator?.href.string ?? "nil")")
+                synthesizer.start(from: locator)
+            }
         case .paused:
             NSLog("[ReaderViewModel] Resuming...")
             synthesizer.resume()
