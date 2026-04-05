@@ -32,6 +32,14 @@ final class SherpaOnnxTTSEngine: TTSEngine {
         }
     }
 
+    /// Immediately stops any ongoing audio playback.
+    func stopSpeaking() {
+        Task {
+            await audioPlayer.stop()
+        }
+        systemSynthesizer.stopSpeaking(at: .immediate)
+    }
+
     // MARK: - TTSEngine Protocol
 
     var availableVoices: [TTSVoice] {
@@ -81,6 +89,11 @@ final class SherpaOnnxTTSEngine: TTSEngine {
             NSLog("[TTSEngine] Synthesis successful, playing audio...")
             let pcmData = floatSamplesToPCM16(result.samples)
             await audioPlayer.playAndWait(pcmData: pcmData, sampleRate: Int(result.sampleRate))
+            return .success(())
+        }
+
+        // Check if cancelled during synthesis
+        if Task.isCancelled {
             return .success(())
         }
 

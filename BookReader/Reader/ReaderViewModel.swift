@@ -29,6 +29,8 @@ final class ReaderViewModel {
     private var modelContext: ModelContext?
     @ObservationIgnored
     private var currentBookId: UUID?
+    @ObservationIgnored
+    private var ttsEngine: SherpaOnnxTTSEngine?
 
     @ObservationIgnored
     private lazy var httpClient = DefaultHTTPClient()
@@ -155,9 +157,11 @@ final class ReaderViewModel {
 
     private func setupTTS(for publication: Publication) {
         NSLog("[ReaderViewModel] Setting up TTS for publication...")
+        let engine = SherpaOnnxTTSEngine()
+        self.ttsEngine = engine
         guard let synthesizer = PublicationSpeechSynthesizer(
             publication: publication,
-            engineFactory: { SherpaOnnxTTSEngine() },
+            engineFactory: { engine },
             tokenizerFactory: { defaultLanguage in
                 makeJiebaContentTokenizer(defaultLanguage: defaultLanguage)
             },
@@ -190,11 +194,13 @@ final class ReaderViewModel {
         case .playing:
             NSLog("[ReaderViewModel] Pausing...")
             synthesizer.pause()
+            ttsEngine?.stopSpeaking()
         }
     }
 
     func stop() {
         ttsSynthesizer?.stop()
+        ttsEngine?.stopSpeaking()
         isPlaying = false
         currentUtteranceText = ""
     }

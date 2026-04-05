@@ -5,7 +5,7 @@ import AVFoundation
 actor AudioPlayerService {
     private let engine = AVAudioEngine()
     private let playerNode = AVAudioPlayerNode()
-    private var isEngineStarted = false
+    private var continuation: CheckedContinuation<Void, Never>?
 
     init() {
         engine.attach(playerNode)
@@ -37,15 +37,27 @@ actor AudioPlayerService {
             try? engine.start()
         }
 
-        await withCheckedContinuation { continuation in
-            playerNode.scheduleBuffer(buffer) {
-                continuation.resume()
+        await withCheckedContinuation { cont in
+            self.continuation = cont
+            playerNode.scheduleBuffer(buffer) { [weak self] in
+                Task { await self?.resumeContinuation() }
             }
             playerNode.play()
         }
     }
 
+    private func resumeContinuation() {
+        guard let cont = continuation else { return }
+        continuation = nil
+        cont.resume()
+    }
+
     func stop() {
+        // Resume continuation first so playAndWait can return
+        if let cont = continuation {
+            continuation = nil
+            cont.resume()
+        }
         playerNode.stop()
         if engine.isRunning {
             engine.stop()
