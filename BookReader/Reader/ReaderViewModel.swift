@@ -108,8 +108,8 @@ final class ReaderViewModel {
         NSLog("[ReaderViewModel] Current state: \(synthesizer.state)")
         switch synthesizer.state {
         case .stopped:
-            NSLog("[ReaderViewModel] Starting from nil position...")
-            synthesizer.start(from: nil)
+            NSLog("[ReaderViewModel] Starting from current location...")
+            synthesizer.start(from: navigator?.currentLocation)
         case .paused:
             NSLog("[ReaderViewModel] Resuming...")
             synthesizer.resume()
