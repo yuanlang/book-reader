@@ -34,7 +34,7 @@ struct LibraryView: View {
         ) { result in
             handleImportResult(result)
         }
-        .sheet(item: $selectedBook) { book in
+        .fullScreenCover(item: $selectedBook) { book in
             NavigationStack {
                 ReaderView(book: book)
             }

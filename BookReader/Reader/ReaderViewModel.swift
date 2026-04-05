@@ -20,6 +20,10 @@ final class ReaderViewModel {
     private var ttsSynthesizer: PublicationSpeechSynthesizer?
     @ObservationIgnored
     private let storage = BookStorageService.shared
+    @ObservationIgnored
+    private var navigatorDelegate: NavigatorDelegateHandler?
+    @ObservationIgnored
+    private var isTTSNavigating = false  // Flag to ignore TTS-triggered navigation
 
     @ObservationIgnored
     private lazy var httpClient = DefaultHTTPClient()
@@ -70,6 +74,7 @@ final class ReaderViewModel {
         }
     }
 
+    @MainActor
     private func setupNavigator(with publication: Publication) {
         do {
             let navigator = try EPUBNavigatorViewController(
@@ -77,9 +82,27 @@ final class ReaderViewModel {
                 initialLocation: nil
             )
             self.navigator = navigator
+            // Set up navigator delegate to handle page changes
+            let delegate = NavigatorDelegateHandler { [weak self] in
+                self?.handlePageChange()
+            }
+            navigator.delegate = delegate
+            self.navigatorDelegate = delegate
             setupTTS(for: publication)
         } catch {
             self.errorMessage = "初始化阅读器失败: \(error.localizedDescription)"
+        }
+    }
+
+    private func handlePageChange() {
+        // Ignore navigation triggered by TTS itself
+        guard !isTTSNavigating else { return }
+        // When user manually changes page, stop TTS
+        guard let synthesizer = ttsSynthesizer else { return }
+        if synthesizer.state != .stopped {
+            synthesizer.stop()
+            isPlaying = false
+            currentUtteranceText = ""
         }
     }
 
@@ -173,7 +196,9 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
             currentUtteranceText = utterance.text
             // 同步页面到朗读位置
             Task {
+                isTTSNavigating = true
                 await navigator?.go(to: utterance.locator)
+                isTTSNavigating = false
             }
         case .paused(let utterance):
             NSLog("[ReaderViewModel] Paused: \(utterance.text.prefix(50))")
@@ -193,5 +218,28 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
     ) {
         NSLog("[ReaderViewModel] TTS Error: \(error)")
         errorMessage = "朗读出错: \(error)"
+    }
+}
+
+// MARK: - Navigator Delegate Handler
+
+@MainActor
+private class NavigatorDelegateHandler: NSObject, EPUBNavigatorDelegate {
+    private let onPageChange: @MainActor () -> Void
+
+    @MainActor
+    init(onPageChange: @escaping @MainActor () -> Void) {
+        self.onPageChange = onPageChange
+        super.init()
+    }
+
+    nonisolated func navigator(_ navigator: Navigator, locationDidChange locator: Locator) {
+        Task { @MainActor in
+            onPageChange()
+        }
+    }
+
+    func navigator(_ navigator: Navigator, presentError error: NavigatorError) {
+        // Handle errors silently for now
     }
 }
