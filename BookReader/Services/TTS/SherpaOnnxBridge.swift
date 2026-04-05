@@ -1,7 +1,7 @@
 import Foundation
 
 /// Bridge to sherpa-onnx TTS engine using the C API.
-/// Wraps MeloTTS Chinese speech synthesis via sherpa-onnx.
+/// Wraps vits-zh-hf-theresa Chinese speech synthesis via sherpa-onnx.
 final class SherpaOnnxBridge {
     private var tts: OpaquePointer?
     private(set) var sampleRate: Int32 = 22050
@@ -62,6 +62,13 @@ final class SherpaOnnxBridge {
         config.model.vits.tokens = tokensNS.utf8String
         if fm.fileExists(atPath: lexiconPath) {
             config.model.vits.lexicon = lexiconNS.utf8String
+        }
+
+        // Set dict directory for Chinese text normalization
+        let dictDirPath = (ttsModelDir as NSString).appendingPathComponent("dict")
+        if fm.fileExists(atPath: dictDirPath) {
+            let dictDirNS = dictDirPath as NSString
+            config.model.vits.dict_dir = dictDirNS.utf8String
         }
 
         // Set date/number/phone FSTs

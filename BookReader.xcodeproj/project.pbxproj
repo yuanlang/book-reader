@@ -15,6 +15,7 @@
 		42C886C5881503DDCE534EDA /* ReadiumStreamer in Frameworks */ = {isa = PBXBuildFile; productRef = B1661FB35B72183481E0DFF5 /* ReadiumStreamer */; };
 		44B0EAE9641FD4011069A264 /* BookReaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A1E4671C6EC6716D7ED93A /* BookReaderApp.swift */; };
 		473DB57F43B63A3073F18A69 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F87D78D076863DB068F9C3 /* ReaderViewModel.swift */; };
+		4876DE5814527F0A5A20263D /* model.onnx in Resources */ = {isa = PBXBuildFile; fileRef = 009C99F22B83098D27A0E477 /* model.onnx */; };
 		5A15A588C385B4225F04D2A1 /* SherpaOnnxTTSEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8940DFB75A56DFF1B1CB9538 /* SherpaOnnxTTSEngine.swift */; };
 		5A6D843F6ABA66D4F01F56CF /* date.fst in Resources */ = {isa = PBXBuildFile; fileRef = 6B536223B9E40C0D4F3C12F5 /* date.fst */; };
 		5CF717103D4EA0B5A231F227 /* ReadiumNavigator in Frameworks */ = {isa = PBXBuildFile; productRef = 549550EC251540AEB5055A82 /* ReadiumNavigator */; };
@@ -37,7 +38,6 @@
 		B20F45DCB865D855883B2688 /* TTSControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7198488C20830886F21C3D /* TTSControlPanel.swift */; };
 		B3E457A01F2060BF9D7321EB /* TTSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452A3EAA8BE87A557079E790 /* TTSUITests.swift */; };
 		C73647D5E28D03A1959DBF5E /* number.fst in Resources */ = {isa = PBXBuildFile; fileRef = 3CF550815009C0419F5113FF /* number.fst */; };
-		D397294FC2AA09725FA2B9B9 /* model.onnx in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5C /* model.onnx */; };
 		D397294FC2AA09725FA2B9B9 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68806CB17C5F3E561443757D /* BookCardView.swift */; };
 		D5C5A46B950549D72FB1CDAC /* hmm_model.utf8 in Resources */ = {isa = PBXBuildFile; fileRef = F739C8BFD953D52799B69BB0 /* hmm_model.utf8 */; };
 		D65CAB56D2E6EE4F6D54B2A6 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54236BEB6F066B8DB6DBB062 /* ReaderView.swift */; };
@@ -82,6 +82,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		009C99F22B83098D27A0E477 /* model.onnx */ = {isa = PBXFileReference; path = model.onnx; sourceTree = "<group>"; };
 		0399A5A143F39823EE154B68 /* Colors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Colors.hpp; sourceTree = "<group>"; };
 		04B976204EF243455BF7D167 /* Segmentor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Segmentor.cpp; sourceTree = "<group>"; };
 		0AA3869243ECDBE76564DB87 /* BookReader.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BookReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +116,6 @@
 		660765D91580627D66574353 /* ArgvContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArgvContext.hpp; sourceTree = "<group>"; };
 		68806CB17C5F3E561443757D /* BookCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCardView.swift; sourceTree = "<group>"; };
 		6B536223B9E40C0D4F3C12F5 /* date.fst */ = {isa = PBXFileReference; path = date.fst; sourceTree = "<group>"; };
-		A1B2C3D4E5F60718293A4B5C /* model.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.onnx; sourceTree = "<group>"; };
 		6C483CEE825C96227F2B29BF /* JiebaSegmenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JiebaSegmenter.swift; sourceTree = "<group>"; };
 		6E293A0D021A4F4DD812961E /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		72E32D2D2B7CD7E8943D46EB /* MPSegment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MPSegment.hpp; sourceTree = "<group>"; };
@@ -315,7 +315,7 @@
 			children = (
 				6B536223B9E40C0D4F3C12F5 /* date.fst */,
 				EAE2B7EC5B5A649A9D7DAC31 /* lexicon.txt */,
-				A1B2C3D4E5F60718293A4B5C /* model.onnx */,
+				009C99F22B83098D27A0E477 /* model.onnx */,
 				3CF550815009C0419F5113FF /* number.fst */,
 				6242094E841D2F097051C7A5 /* phone.fst */,
 				948D044AF6DCD93D3E932F10 /* tokens.txt */,
@@ -532,7 +532,7 @@
 				6074D8CEBC0C16B18298C47E /* idf.dict.utf8 in Resources */,
 				F8270643E08FDB938B9AC6D5 /* jieba.dict.utf8 in Resources */,
 				70D382CC76EC089BE697D8E3 /* lexicon.txt in Resources */,
-				D397294FC2AA09725FA2B9B9 /* model.onnx in Resources */,
+				4876DE5814527F0A5A20263D /* model.onnx in Resources */,
 				C73647D5E28D03A1959DBF5E /* number.fst in Resources */,
 				60EE312137FFC7931492D6E7 /* phone.fst in Resources */,
 				1D225349D5BBE910A4B87B4A /* stop_word.utf8 in Resources */,

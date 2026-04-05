@@ -99,3 +99,41 @@ xcodebuild -project BookReader.xcodeproj -scheme BookReader -destination 'platfo
 ### 数据持久化
 - SwiftData 存储书籍信息和阅读进度
 - 文件存储在 Documents/Books/ 目录
+
+## 开发工作流程
+
+**重要**: 每次功能开发完成后，必须执行以下自动化流程：
+
+### 触发条件
+当用户说 **"完成"**、**"done"** 或 **"测试提交"** 时，自动执行：
+
+### 1. 运行自动化测试
+```bash
+# 运行 UI 测试
+./scripts/run_tests.sh
+
+# 或手动运行
+xcodebuild test -project BookReader.xcodeproj -scheme BookReaderUITests -destination 'platform=iOS Simulator,name=iPhone 16'
+```
+
+测试内容：
+- 启动模拟器并运行应用
+- 验证书架加载和书籍显示
+- 测试打开书籍和 TTS 控制面板
+- 测试 TTS 播放/暂停功能
+
+### 2. 提交代码
+测试通过后，自动执行 git commit：
+- 分析修改的文件和内容
+- 自动生成 commit message（根据功能内容）
+- 提交到本地仓库
+
+### 示例 commit message 格式
+```
+feat: 添加 XXX 功能
+
+- 修改文件1
+- 修改文件2
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+```
