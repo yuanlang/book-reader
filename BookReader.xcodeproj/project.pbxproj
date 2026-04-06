@@ -41,6 +41,7 @@
 		B20F45DCB865D855883B2688 /* TTSControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7198488C20830886F21C3D /* TTSControlPanel.swift */; };
 		B3E457A01F2060BF9D7321EB /* TTSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452A3EAA8BE87A557079E790 /* TTSUITests.swift */; };
 		B531A00CDD6F81332E75C3EC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D6475CD416E3B79976B9A8FD /* README.md */; };
+		B5FCDEA5ED11C0ACD996D659 /* espeak-ng-data in Resources */ = {isa = PBXBuildFile; fileRef = DB8C6E063A44B331B77F3E09 /* espeak-ng-data */; };
 		D397294FC2AA09725FA2B9B9 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68806CB17C5F3E561443757D /* BookCardView.swift */; };
 		D5C5A46B950549D72FB1CDAC /* hmm_model.utf8 in Resources */ = {isa = PBXBuildFile; fileRef = F739C8BFD953D52799B69BB0 /* hmm_model.utf8 */; };
 		D65CAB56D2E6EE4F6D54B2A6 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54236BEB6F066B8DB6DBB062 /* ReaderView.swift */; };
@@ -88,434 +89,80 @@
 /* Begin PBXFileReference section */
 		009C99F22B83098D27A0E477 /* model.onnx */ = {isa = PBXFileReference; path = model.onnx; sourceTree = "<group>"; };
 		01405EDD8CB1623B4FA708A4 /* voices.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = voices.bin; sourceTree = "<group>"; };
-		02BA79049E6A0EFF1B51A036 /* si */ = {isa = PBXFileReference; path = si; sourceTree = "<group>"; };
-		02F4B164B1FC45BE27249C72 /* anikaRobot */ = {isa = PBXFileReference; path = anikaRobot; sourceTree = "<group>"; };
-		0352516992E38D1CF85C18AE /* sl_dict */ = {isa = PBXFileReference; path = sl_dict; sourceTree = "<group>"; };
 		03584829E23DBAB76270B072 /* number-zh.fst */ = {isa = PBXFileReference; path = "number-zh.fst"; sourceTree = "<group>"; };
 		0399A5A143F39823EE154B68 /* Colors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Colors.hpp; sourceTree = "<group>"; };
-		03CEEAC3071D0EF2B4266B4E /* de */ = {isa = PBXFileReference; path = de; sourceTree = "<group>"; };
 		04B976204EF243455BF7D167 /* Segmentor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Segmentor.cpp; sourceTree = "<group>"; };
-		0500F3948D06364B6026CC59 /* phondata-manifest */ = {isa = PBXFileReference; path = "phondata-manifest"; sourceTree = "<group>"; };
 		05D8CF92D2B35A79D736185A /* lexicon-us-en.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "lexicon-us-en.txt"; sourceTree = "<group>"; };
-		05FF6CFAD3937073D6412C02 /* ar_dict */ = {isa = PBXFileReference; path = ar_dict; sourceTree = "<group>"; };
-		06F642D8B3E4B39C70018B34 /* ms */ = {isa = PBXFileReference; path = ms; sourceTree = "<group>"; };
-		08065A339BF455C7FA089C3C /* ky_dict */ = {isa = PBXFileReference; path = ky_dict; sourceTree = "<group>"; };
-		08B3CFDDABA4FB2ACFC38BA3 /* bs_dict */ = {isa = PBXFileReference; path = bs_dict; sourceTree = "<group>"; };
-		08EE61FD92C268DF3031DD24 /* ml_dict */ = {isa = PBXFileReference; path = ml_dict; sourceTree = "<group>"; };
-		0950BA3B72E152927BCF2A56 /* whisperf */ = {isa = PBXFileReference; path = whisperf; sourceTree = "<group>"; };
-		09671435E126B2034265CEA2 /* whisper */ = {isa = PBXFileReference; path = whisper; sourceTree = "<group>"; };
 		0AA3869243ECDBE76564DB87 /* BookReader.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BookReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB82FBB08C233DFD6988DC9 /* en_dict */ = {isa = PBXFileReference; path = en_dict; sourceTree = "<group>"; };
-		0C3B1DDDEEECCE8FBB1414D9 /* id_dict */ = {isa = PBXFileReference; path = id_dict; sourceTree = "<group>"; };
-		0C4206A2A90A3A3264002281 /* fr-BE */ = {isa = PBXFileReference; path = "fr-BE"; sourceTree = "<group>"; };
-		0E18F4790E5A46B70183ED27 /* en-GB-x-gbcwmd */ = {isa = PBXFileReference; path = "en-GB-x-gbcwmd"; sourceTree = "<group>"; };
 		0E8C040D4AAA5810213D19EA /* JiebaWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = JiebaWrapper.mm; sourceTree = "<group>"; };
 		0F592FC0FA5A9624050851B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		0FDB8A86D1942C59B62C2578 /* f1 */ = {isa = PBXFileReference; path = f1; sourceTree = "<group>"; };
-		105FAAFBC193F391E1681164 /* john */ = {isa = PBXFileReference; path = john; sourceTree = "<group>"; };
-		10A2464AB5900FD6AED881BE /* ug_dict */ = {isa = PBXFileReference; path = ug_dict; sourceTree = "<group>"; };
-		111FF93D9C5C43A8D112F74D /* io */ = {isa = PBXFileReference; path = io; sourceTree = "<group>"; };
-		11DCFE11A523DE7FC411FA3F /* bg */ = {isa = PBXFileReference; path = bg; sourceTree = "<group>"; };
-		12142D47D64D3189ACF0D599 /* es_dict */ = {isa = PBXFileReference; path = es_dict; sourceTree = "<group>"; };
-		1215001E975172DD404AF9E3 /* m2 */ = {isa = PBXFileReference; path = m2; sourceTree = "<group>"; };
-		1270A0C1E57D10512852933F /* mt_dict */ = {isa = PBXFileReference; path = mt_dict; sourceTree = "<group>"; };
 		127B2DEA932D78EA76593FD8 /* user.dict.utf8 */ = {isa = PBXFileReference; path = user.dict.utf8; sourceTree = "<group>"; };
-		12BAFA0439308C974C389265 /* gu_dict */ = {isa = PBXFileReference; path = gu_dict; sourceTree = "<group>"; };
-		139F0F95E8A8156F16BD89D1 /* de_dict */ = {isa = PBXFileReference; path = de_dict; sourceTree = "<group>"; };
-		13CB6BDC1976B69C30BFD882 /* tr_dict */ = {isa = PBXFileReference; path = tr_dict; sourceTree = "<group>"; };
-		13E9FE1737C232594CF38388 /* ca_dict */ = {isa = PBXFileReference; path = ca_dict; sourceTree = "<group>"; };
-		13F961F9306250012A4A2C9C /* gustave */ = {isa = PBXFileReference; path = gustave; sourceTree = "<group>"; };
-		1416928B24365EB06DAF0D05 /* py_dict */ = {isa = PBXFileReference; path = py_dict; sourceTree = "<group>"; };
-		14FA4A1F56F26C756A89BE1B /* qya_dict */ = {isa = PBXFileReference; path = qya_dict; sourceTree = "<group>"; };
-		1529C4AAB6982B28D039FB53 /* gd */ = {isa = PBXFileReference; path = gd; sourceTree = "<group>"; };
-		1536DB47BDBE03F9C21723EA /* an_dict */ = {isa = PBXFileReference; path = an_dict; sourceTree = "<group>"; };
-		15E0B2988ED3EDB54E21C478 /* io_dict */ = {isa = PBXFileReference; path = io_dict; sourceTree = "<group>"; };
-		1643206483854593783EB0FB /* f2 */ = {isa = PBXFileReference; path = f2; sourceTree = "<group>"; };
-		166AF6FA95DC99459AC01A2E /* vi_dict */ = {isa = PBXFileReference; path = vi_dict; sourceTree = "<group>"; };
 		1833BFC5241B174F9170504D /* DictTrie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DictTrie.hpp; sourceTree = "<group>"; };
-		183AE3668BDCAEA07DD5A9FC /* gn_dict */ = {isa = PBXFileReference; path = gn_dict; sourceTree = "<group>"; };
-		184B690F9D4BBEF896C97031 /* linda */ = {isa = PBXFileReference; path = linda; sourceTree = "<group>"; };
-		1890CCFF32CA0F26D4FE7C07 /* lv */ = {isa = PBXFileReference; path = lv; sourceTree = "<group>"; };
-		19714426113FCFF6A57D1066 /* Denis */ = {isa = PBXFileReference; path = Denis; sourceTree = "<group>"; };
-		1A2D6581FC84CEB1407926CF /* Nguyen */ = {isa = PBXFileReference; path = Nguyen; sourceTree = "<group>"; };
-		1BEA472C42E29DA4578A4498 /* m7 */ = {isa = PBXFileReference; path = m7; sourceTree = "<group>"; };
-		1BF5FBDE2A05407703C30B93 /* Reed */ = {isa = PBXFileReference; path = Reed; sourceTree = "<group>"; };
 		1C35EF431DD3C3C22B8F191A /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
-		1C797DFF2AA738242488556D /* pt_dict */ = {isa = PBXFileReference; path = pt_dict; sourceTree = "<group>"; };
-		1CC96208C823B7E3F52DD6A4 /* mi_dict */ = {isa = PBXFileReference; path = mi_dict; sourceTree = "<group>"; };
-		1D62C4522786511923D0C34C /* kok */ = {isa = PBXFileReference; path = kok; sourceTree = "<group>"; };
-		1DC12458E39BB3FD2BE4C365 /* eu */ = {isa = PBXFileReference; path = eu; sourceTree = "<group>"; };
-		1DFCFA3DE58E1BB2ADEEDDAF /* en-GB-scotland */ = {isa = PBXFileReference; path = "en-GB-scotland"; sourceTree = "<group>"; };
-		1E1DD50F93577E4B36C85A84 /* michel */ = {isa = PBXFileReference; path = michel; sourceTree = "<group>"; };
 		1E622027BB354CC0ED809994 /* BookReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BookReader-Bridging-Header.h"; sourceTree = "<group>"; };
-		1F860D0AFA7961DB1C815240 /* RicishayMax */ = {isa = PBXFileReference; path = RicishayMax; sourceTree = "<group>"; };
-		2063C9F7E5BEAB9168B29132 /* sr */ = {isa = PBXFileReference; path = sr; sourceTree = "<group>"; };
-		20971F491E5B2702CB7FBDD4 /* Michael */ = {isa = PBXFileReference; path = Michael; sourceTree = "<group>"; };
-		216363FD680EE5FEDEEA2AF9 /* vi-VN-x-central */ = {isa = PBXFileReference; path = "vi-VN-x-central"; sourceTree = "<group>"; };
-		21653E7A6F9FAE411BBFB77D /* gd_dict */ = {isa = PBXFileReference; path = gd_dict; sourceTree = "<group>"; };
 		21E6709BE2EB6FB6A934F45B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2211868009BFE2CE70A7868F /* smj */ = {isa = PBXFileReference; path = smj; sourceTree = "<group>"; };
-		2216C35B133483F8517398C9 /* qya */ = {isa = PBXFileReference; path = qya; sourceTree = "<group>"; };
 		222D006D759DF7653D1D37F2 /* BookReaderUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BookReaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		228FA10552D41B92DDC5F540 /* et_dict */ = {isa = PBXFileReference; path = et_dict; sourceTree = "<group>"; };
 		22EF089B7548D52A2C60A5AE /* Jieba.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Jieba.hpp; sourceTree = "<group>"; };
-		23FCE771ECF406B5A12C56A1 /* grc_dict */ = {isa = PBXFileReference; path = grc_dict; sourceTree = "<group>"; };
-		240815AF4BBCD97A439CA0A3 /* travis */ = {isa = PBXFileReference; path = travis; sourceTree = "<group>"; };
-		2412EA5409410FECADEC2A5E /* pl */ = {isa = PBXFileReference; path = pl; sourceTree = "<group>"; };
-		241A246EE6306DC519312F6E /* Alex */ = {isa = PBXFileReference; path = Alex; sourceTree = "<group>"; };
 		242FDCBA6D09C9BD223E9F88 /* Config.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Config.hpp; sourceTree = "<group>"; };
-		243E5ED07269B9FCBE6B4B8E /* mto_dict */ = {isa = PBXFileReference; path = mto_dict; sourceTree = "<group>"; };
-		248ADF97576B1711FE8A84E0 /* kl_dict */ = {isa = PBXFileReference; path = kl_dict; sourceTree = "<group>"; };
-		250A322FF44678DB18EA5ECB /* paul */ = {isa = PBXFileReference; path = paul; sourceTree = "<group>"; };
-		25C373C627FC8BDCE0A51E94 /* sd_dict */ = {isa = PBXFileReference; path = sd_dict; sourceTree = "<group>"; };
-		263C7C93CCB9AF75EA5A33A6 /* pt-BR */ = {isa = PBXFileReference; path = "pt-BR"; sourceTree = "<group>"; };
-		263DF9DFAC088C9847351EE7 /* qu_dict */ = {isa = PBXFileReference; path = qu_dict; sourceTree = "<group>"; };
-		264BA6339F9FE36B1BCD6BE2 /* lt_dict */ = {isa = PBXFileReference; path = lt_dict; sourceTree = "<group>"; };
-		27617E0EF420467E73BA3CAE /* or_dict */ = {isa = PBXFileReference; path = or_dict; sourceTree = "<group>"; };
-		27B4DC52E8D7B888522DC8A6 /* m4 */ = {isa = PBXFileReference; path = m4; sourceTree = "<group>"; };
-		2860A9A51C9DA695AF190E6D /* ht_dict */ = {isa = PBXFileReference; path = ht_dict; sourceTree = "<group>"; };
-		28BA2FB1482D237E066235E5 /* piqd */ = {isa = PBXFileReference; path = piqd; sourceTree = "<group>"; };
 		29F94D8A9E15A97BA96B37AA /* Segmentor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Segmentor.h; sourceTree = "<group>"; };
-		2ADD71E592D1B5DAC68A047B /* om_dict */ = {isa = PBXFileReference; path = om_dict; sourceTree = "<group>"; };
-		2BF747DDD7360562AACD7359 /* Alicia */ = {isa = PBXFileReference; path = Alicia; sourceTree = "<group>"; };
 		2CDBF56DE81BF04E55986F6E /* HMMModel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HMMModel.hpp; sourceTree = "<group>"; };
-		2E4FC0C70ED9EB25443CD16F /* victor */ = {isa = PBXFileReference; path = victor; sourceTree = "<group>"; };
 		2FE0288C0F43AFAAA9B3274F /* SherpaOnnxBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaOnnxBridge.swift; sourceTree = "<group>"; };
-		308F08396A4B01B20F74EDED /* Andy */ = {isa = PBXFileReference; path = Andy; sourceTree = "<group>"; };
-		30C1A2C65208F043C1FE3C59 /* robosoft3 */ = {isa = PBXFileReference; path = robosoft3; sourceTree = "<group>"; };
-		312DD317232A92D0653CB9C4 /* marcelo */ = {isa = PBXFileReference; path = marcelo; sourceTree = "<group>"; };
-		32CBFB8151A43AEC9435256B /* uz_dict */ = {isa = PBXFileReference; path = uz_dict; sourceTree = "<group>"; };
-		33E33FD6327B59A8FAE7038C /* Mr serious */ = {isa = PBXFileReference; path = "Mr serious"; sourceTree = "<group>"; };
-		33FF132B907FE5F2F9211116 /* pedro */ = {isa = PBXFileReference; path = pedro; sourceTree = "<group>"; };
-		353282DE972555EE70F3C2A2 /* ia */ = {isa = PBXFileReference; path = ia; sourceTree = "<group>"; };
-		360F10215EBF5CA5B356608C /* Lee */ = {isa = PBXFileReference; path = Lee; sourceTree = "<group>"; };
-		36E90A8A24275804322DE89E /* cv */ = {isa = PBXFileReference; path = cv; sourceTree = "<group>"; };
-		395F4FBB21B1B890DE6856F9 /* benjamin */ = {isa = PBXFileReference; path = benjamin; sourceTree = "<group>"; };
-		3AD0AEE554C3B1C4084577CD /* Demonic */ = {isa = PBXFileReference; path = Demonic; sourceTree = "<group>"; };
-		3AEBFCAFD88C552004EED6D6 /* hr_dict */ = {isa = PBXFileReference; path = hr_dict; sourceTree = "<group>"; };
-		3B66AE24823D26DAD07FF3E1 /* my_dict */ = {isa = PBXFileReference; path = my_dict; sourceTree = "<group>"; };
-		3BBD20BE902CBCED20AC5959 /* grandpa */ = {isa = PBXFileReference; path = grandpa; sourceTree = "<group>"; };
-		3CAA34AF33318C2CAF8585C8 /* Marco */ = {isa = PBXFileReference; path = Marco; sourceTree = "<group>"; };
-		3CB5D898AC0E1469CBF9A188 /* miguel */ = {isa = PBXFileReference; path = miguel; sourceTree = "<group>"; };
-		3E02CE63CC447ACDBC5A55DD /* bg_dict */ = {isa = PBXFileReference; path = bg_dict; sourceTree = "<group>"; };
-		3E68B0D39E57EFF99E6D6C2D /* uk_dict */ = {isa = PBXFileReference; path = uk_dict; sourceTree = "<group>"; };
 		3E887D5FD53A1F818F3E2425 /* BookReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookReader.entitlements; sourceTree = "<group>"; };
 		3EF7CCC1F71934672714865F /* stop_word.utf8 */ = {isa = PBXFileReference; path = stop_word.utf8; sourceTree = "<group>"; };
-		3F4F3FB60DE4C4475AF72385 /* nci_dict */ = {isa = PBXFileReference; path = nci_dict; sourceTree = "<group>"; };
-		403A8EFEE18772BA58836DB8 /* tk_dict */ = {isa = PBXFileReference; path = tk_dict; sourceTree = "<group>"; };
-		41D0DD895C7C78C6125B3F33 /* pap_dict */ = {isa = PBXFileReference; path = pap_dict; sourceTree = "<group>"; };
-		41E2164BB19203718FF11E47 /* hyw */ = {isa = PBXFileReference; path = hyw; sourceTree = "<group>"; };
 		42AE08BA32F6FE23CFF83F46 /* HMMSegment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HMMSegment.hpp; sourceTree = "<group>"; };
 		452A3EAA8BE87A557079E790 /* TTSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSUITests.swift; sourceTree = "<group>"; };
 		459D1E1E5CE46536A6F2C4C3 /* Trie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Trie.hpp; sourceTree = "<group>"; };
-		470A0EFDAB48DEE8BD3F73DD /* bn */ = {isa = PBXFileReference; path = bn; sourceTree = "<group>"; };
-		47443849ACD7E7BB08F58E26 /* tr */ = {isa = PBXFileReference; path = tr; sourceTree = "<group>"; };
-		47D98FCE4462F2FA36BF7CF1 /* chr */ = {isa = PBXFileReference; path = chr; sourceTree = "<group>"; };
 		47F87D78D076863DB068F9C3 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
-		49803F4C2F31DA34432F56F6 /* fast */ = {isa = PBXFileReference; path = fast; sourceTree = "<group>"; };
-		4B8609C9A0A76C89091B3451 /* jbo */ = {isa = PBXFileReference; path = jbo; sourceTree = "<group>"; };
-		4B8981F00E147BC5B0438A2B /* mi */ = {isa = PBXFileReference; path = mi; sourceTree = "<group>"; };
 		4D1B579D210B6DD151122170 /* JiebaSegmenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JiebaSegmenterTests.swift; sourceTree = "<group>"; };
-		4D397717F156CF1C06976EC8 /* is_dict */ = {isa = PBXFileReference; path = is_dict; sourceTree = "<group>"; };
-		4E07E58FA99E06777CCF096B /* Henrique */ = {isa = PBXFileReference; path = Henrique; sourceTree = "<group>"; };
 		4EE0C59D04765BD3F9BEB09D /* ReadingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingProgress.swift; sourceTree = "<group>"; };
-		4EFA90E563D1602B7523D417 /* ug */ = {isa = PBXFileReference; path = ug; sourceTree = "<group>"; };
-		504CBF3676711F2A98D850D6 /* pa */ = {isa = PBXFileReference; path = pa; sourceTree = "<group>"; };
-		517F88F76460E6882AD5CB81 /* hi */ = {isa = PBXFileReference; path = hi; sourceTree = "<group>"; };
-		5230AC59B33F4A20C1EECE23 /* tk */ = {isa = PBXFileReference; path = tk; sourceTree = "<group>"; };
-		523580547B9C5C32CCF278E1 /* et */ = {isa = PBXFileReference; path = et; sourceTree = "<group>"; };
-		53B15AA7480F71E29110EE92 /* sr_dict */ = {isa = PBXFileReference; path = sr_dict; sourceTree = "<group>"; };
-		540A54AAFA879FF4B5047E66 /* bpy_dict */ = {isa = PBXFileReference; path = bpy_dict; sourceTree = "<group>"; };
 		54236BEB6F066B8DB6DBB062 /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
-		5459065EDEEAAC0ED2A8F036 /* is */ = {isa = PBXFileReference; path = is; sourceTree = "<group>"; };
 		54AA4E933C9034D1C542CD9D /* KeywordExtractor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeywordExtractor.hpp; sourceTree = "<group>"; };
-		54C59CB355A4A41C42BC1B44 /* f5 */ = {isa = PBXFileReference; path = f5; sourceTree = "<group>"; };
-		54F9BF3208C318072F1E9479 /* ko */ = {isa = PBXFileReference; path = ko; sourceTree = "<group>"; };
 		5501301DD27F932015FFB3A7 /* FullSegment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FullSegment.hpp; sourceTree = "<group>"; };
-		55B2735622FC1D2F3053B592 /* croak */ = {isa = PBXFileReference; path = croak; sourceTree = "<group>"; };
-		56649B3AA27E7EBD16D5DB86 /* mt */ = {isa = PBXFileReference; path = mt; sourceTree = "<group>"; };
-		56D975C1D3302083C362F588 /* ar */ = {isa = PBXFileReference; path = ar; sourceTree = "<group>"; };
-		579A7564BED9A2E13D007D2D /* iven2 */ = {isa = PBXFileReference; path = iven2; sourceTree = "<group>"; };
-		57C7A05DBC69F1CCA14861B0 /* antonio */ = {isa = PBXFileReference; path = antonio; sourceTree = "<group>"; };
-		5864779D86817481B3B29A00 /* phontab */ = {isa = PBXFileReference; path = phontab; sourceTree = "<group>"; };
-		5872F6FFBD070875AB898423 /* af_dict */ = {isa = PBXFileReference; path = af_dict; sourceTree = "<group>"; };
-		589AB6E430FE20299D2AF2EE /* py */ = {isa = PBXFileReference; path = py; sourceTree = "<group>"; };
-		5967E6865B5E58E79FDA1CBB /* be_dict */ = {isa = PBXFileReference; path = be_dict; sourceTree = "<group>"; };
-		59D71D0CC8588D5E58D8B93E /* fa */ = {isa = PBXFileReference; path = fa; sourceTree = "<group>"; };
-		5AFC76821D72C6D1EEA15949 /* ru_dict */ = {isa = PBXFileReference; path = ru_dict; sourceTree = "<group>"; };
-		5BBA6D939FB3E148A254BE32 /* steph2 */ = {isa = PBXFileReference; path = steph2; sourceTree = "<group>"; };
-		5BE4436BDD5D7953FD58EB82 /* ml */ = {isa = PBXFileReference; path = ml; sourceTree = "<group>"; };
-		5C611B32AB9C68706AC11B67 /* shelby */ = {isa = PBXFileReference; path = shelby; sourceTree = "<group>"; };
 		5CEC4A69D654F80A68973E97 /* lexicon-zh.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "lexicon-zh.txt"; sourceTree = "<group>"; };
-		5D6B3FDFFDF2C1BFE2F2BF28 /* shn */ = {isa = PBXFileReference; path = shn; sourceTree = "<group>"; };
 		5DE6D4EF876CA4C99234833B /* SegmentTagged.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SegmentTagged.hpp; sourceTree = "<group>"; };
-		5E25CAD2F6C5612117DF397E /* cs_dict */ = {isa = PBXFileReference; path = cs_dict; sourceTree = "<group>"; };
-		5EB0439D4F5DDBAC3860688D /* robosoft7 */ = {isa = PBXFileReference; path = robosoft7; sourceTree = "<group>"; };
-		5EEFA25CE9579C2B574C5077 /* ed */ = {isa = PBXFileReference; path = ed; sourceTree = "<group>"; };
-		5FAC40AC0E9EFFFD8CD88F51 /* steph */ = {isa = PBXFileReference; path = steph; sourceTree = "<group>"; };
-		6007C30F900EDA4F0B255400 /* robosoft5 */ = {isa = PBXFileReference; path = robosoft5; sourceTree = "<group>"; };
 		60315E7C6FA5C12A378AADDA /* lexicon-gb-en.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "lexicon-gb-en.txt"; sourceTree = "<group>"; };
-		607032BD5377980182BED6C8 /* nl */ = {isa = PBXFileReference; path = nl; sourceTree = "<group>"; };
-		6203E4F4B6B2F9A47A010CE2 /* ur_dict */ = {isa = PBXFileReference; path = ur_dict; sourceTree = "<group>"; };
-		62986066B7100A5A32FAB36B /* cy_dict */ = {isa = PBXFileReference; path = cy_dict; sourceTree = "<group>"; };
-		6405F9543A4D23ECB0580764 /* ian */ = {isa = PBXFileReference; path = ian; sourceTree = "<group>"; };
 		660765D91580627D66574353 /* ArgvContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArgvContext.hpp; sourceTree = "<group>"; };
-		6621B7D54C6F8984E9F623A6 /* yue-Latn-jyutping */ = {isa = PBXFileReference; path = "yue-Latn-jyutping"; sourceTree = "<group>"; };
-		6658DD690C47361F8445665A /* lt */ = {isa = PBXFileReference; path = lt; sourceTree = "<group>"; };
 		68806CB17C5F3E561443757D /* BookCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCardView.swift; sourceTree = "<group>"; };
-		68E4283339D2A50BB31050DA /* gu */ = {isa = PBXFileReference; path = gu; sourceTree = "<group>"; };
-		69183D5657F322DC4C77C832 /* ku */ = {isa = PBXFileReference; path = ku; sourceTree = "<group>"; };
-		697DF1739C8E6CA5276C5D3A /* sv_dict */ = {isa = PBXFileReference; path = sv_dict; sourceTree = "<group>"; };
-		69A9C7C27869D846CAC82CFE /* ga */ = {isa = PBXFileReference; path = ga; sourceTree = "<group>"; };
-		69F9458B5810F8F1CB69BEFA /* ne */ = {isa = PBXFileReference; path = ne; sourceTree = "<group>"; };
-		6B29193B987E5CEE1338A75E /* hi_dict */ = {isa = PBXFileReference; path = hi_dict; sourceTree = "<group>"; };
 		6C483CEE825C96227F2B29BF /* JiebaSegmenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JiebaSegmenter.swift; sourceTree = "<group>"; };
-		6C4EB42E69043396289F0DCD /* sjn */ = {isa = PBXFileReference; path = sjn; sourceTree = "<group>"; };
-		6C733A5C3A6DD611059C528B /* f3 */ = {isa = PBXFileReference; path = f3; sourceTree = "<group>"; };
-		6CD36D56F143E69ED9328BD1 /* ne_dict */ = {isa = PBXFileReference; path = ne_dict; sourceTree = "<group>"; };
-		6CD453C0D3B3EA9055B6E447 /* ltg */ = {isa = PBXFileReference; path = ltg; sourceTree = "<group>"; };
-		6D0BDFCD397B79508F12499C /* ku_dict */ = {isa = PBXFileReference; path = ku_dict; sourceTree = "<group>"; };
-		6D6EF9C7BFD218E36628A8F5 /* pablo */ = {isa = PBXFileReference; path = pablo; sourceTree = "<group>"; };
-		6DAE74E4BD29D792FA126E78 /* norbert */ = {isa = PBXFileReference; path = norbert; sourceTree = "<group>"; };
-		6E019C98AD4B5FD167C68941 /* sjn_dict */ = {isa = PBXFileReference; path = sjn_dict; sourceTree = "<group>"; };
 		6E293A0D021A4F4DD812961E /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
-		6E88C241FD9109A934FD4746 /* aunty */ = {isa = PBXFileReference; path = aunty; sourceTree = "<group>"; };
-		6E8AC8D421D8353EDB23A786 /* Gene2 */ = {isa = PBXFileReference; path = Gene2; sourceTree = "<group>"; };
-		6F340DDA96B36BA3F8D0EF75 /* en-GB-x-gbclan */ = {isa = PBXFileReference; path = "en-GB-x-gbclan"; sourceTree = "<group>"; };
-		71B2699B438CA3E2CF1CFCC1 /* sv */ = {isa = PBXFileReference; path = sv; sourceTree = "<group>"; };
-		72A72E20851A4969B92E1354 /* fa-Latn */ = {isa = PBXFileReference; path = "fa-Latn"; sourceTree = "<group>"; };
 		72E32D2D2B7CD7E8943D46EB /* MPSegment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MPSegment.hpp; sourceTree = "<group>"; };
-		7320FDA617AE35384BE46780 /* as_dict */ = {isa = PBXFileReference; path = as_dict; sourceTree = "<group>"; };
-		743346AE4997FBBDA4CD833F /* th_dict */ = {isa = PBXFileReference; path = th_dict; sourceTree = "<group>"; };
 		7466D1C44856A8D500E72091 /* TextRankExtractor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextRankExtractor.hpp; sourceTree = "<group>"; };
-		749FAEAFEB93F4C1B3183D14 /* piqd_dict */ = {isa = PBXFileReference; path = piqd_dict; sourceTree = "<group>"; };
-		74CF0C7D133D9521A4ABB61F /* la_dict */ = {isa = PBXFileReference; path = la_dict; sourceTree = "<group>"; };
-		74E8F635AA39E268CE67BDD4 /* eo_dict */ = {isa = PBXFileReference; path = eo_dict; sourceTree = "<group>"; };
-		7609152256D5B178B0B48D3F /* phondata */ = {isa = PBXFileReference; path = phondata; sourceTree = "<group>"; };
-		760D3F4C6E878B6EA116EC4E /* pt */ = {isa = PBXFileReference; path = pt; sourceTree = "<group>"; };
-		7632EF2F2DC20732750F9FA7 /* qdb */ = {isa = PBXFileReference; path = qdb; sourceTree = "<group>"; };
-		7642047EFBEFC62F05E39380 /* klatt6 */ = {isa = PBXFileReference; path = klatt6; sourceTree = "<group>"; };
-		76FD9F9A5936B30206C4CFFD /* anika */ = {isa = PBXFileReference; path = anika; sourceTree = "<group>"; };
-		77388A24B0730B85AA4732E9 /* fr-CH */ = {isa = PBXFileReference; path = "fr-CH"; sourceTree = "<group>"; };
-		7765D83C9C2E26DDB8E106F9 /* nb */ = {isa = PBXFileReference; path = nb; sourceTree = "<group>"; };
-		777279903CFF5A513E5E8712 /* ru */ = {isa = PBXFileReference; path = ru; sourceTree = "<group>"; };
-		788EAB4978850ED1A78353B6 /* hu */ = {isa = PBXFileReference; path = hu; sourceTree = "<group>"; };
 		7930C0A6D2E2337A28C644AE /* StdExtension.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StdExtension.hpp; sourceTree = "<group>"; };
 		79FA601758D334B1AE40A887 /* phone-zh.fst */ = {isa = PBXFileReference; path = "phone-zh.fst"; sourceTree = "<group>"; };
 		7A4742FC58BE8629B0D6A10D /* NonCopyable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NonCopyable.hpp; sourceTree = "<group>"; };
-		7A82026AFEEEF8F241D62340 /* or */ = {isa = PBXFileReference; path = or; sourceTree = "<group>"; };
 		7C47A6E9B6E42304A6C87847 /* JiebaContentTokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JiebaContentTokenizer.swift; sourceTree = "<group>"; };
-		7C949EC107D5910682BBF2CE /* RicishayMax2 */ = {isa = PBXFileReference; path = RicishayMax2; sourceTree = "<group>"; };
-		7D0AAF2CA15008A7DEDCA3AF /* mk */ = {isa = PBXFileReference; path = mk; sourceTree = "<group>"; };
 		7D8B28014E72DAF17184A292 /* JiebaWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JiebaWrapper.h; sourceTree = "<group>"; };
-		7E2B9B4F02C8BC10E16F2F7A /* am_dict */ = {isa = PBXFileReference; path = am_dict; sourceTree = "<group>"; };
-		7E75C2C26BA6FD920C4B840C /* hr */ = {isa = PBXFileReference; path = hr; sourceTree = "<group>"; };
-		7F24EB78CA75362AA4855416 /* el_dict */ = {isa = PBXFileReference; path = el_dict; sourceTree = "<group>"; };
-		7F759E4ED58F663219D1AD30 /* es */ = {isa = PBXFileReference; path = es; sourceTree = "<group>"; };
-		7FCC835E6F617A5F2EDDC7D8 /* caleb */ = {isa = PBXFileReference; path = caleb; sourceTree = "<group>"; };
 		80F6C2D47BAF122E79101B27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81422422D06149627F684902 /* PosTagger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PosTagger.hpp; sourceTree = "<group>"; };
-		8154B4CDFA37BF54078699DB /* fr */ = {isa = PBXFileReference; path = fr; sourceTree = "<group>"; };
-		82245333148358C2B4C7F77D /* robosoft8 */ = {isa = PBXFileReference; path = robosoft8; sourceTree = "<group>"; };
-		828EFB2584786E4B60DA8523 /* nog_dict */ = {isa = PBXFileReference; path = nog_dict; sourceTree = "<group>"; };
-		8305F762D345E0B88AD73F6D /* id */ = {isa = PBXFileReference; path = id; sourceTree = "<group>"; };
-		83F675E4455D8377FD9E851D /* el */ = {isa = PBXFileReference; path = el; sourceTree = "<group>"; };
 		8422086A8E4130CC530F402B /* StringUtil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StringUtil.hpp; sourceTree = "<group>"; };
-		85B97B258E2764B43582A2AC /* ru-LV */ = {isa = PBXFileReference; path = "ru-LV"; sourceTree = "<group>"; };
-		8627AD5C3494D49B39A5E5A3 /* mr_dict */ = {isa = PBXFileReference; path = mr_dict; sourceTree = "<group>"; };
-		873AF8A8001A3A21001FBBA3 /* la */ = {isa = PBXFileReference; path = la; sourceTree = "<group>"; };
-		8790652D7A73446B8C89188F /* pl_dict */ = {isa = PBXFileReference; path = pl_dict; sourceTree = "<group>"; };
-		87CAEB156D90D93F3DD212D6 /* ba_dict */ = {isa = PBXFileReference; path = ba_dict; sourceTree = "<group>"; };
-		87F6688C153D8C4815E38089 /* quc */ = {isa = PBXFileReference; path = quc; sourceTree = "<group>"; };
-		88961BE980010F39C14105DD /* m6 */ = {isa = PBXFileReference; path = m6; sourceTree = "<group>"; };
-		892C92F7E6BB88B679EC36A2 /* klatt4 */ = {isa = PBXFileReference; path = klatt4; sourceTree = "<group>"; };
 		8940DFB75A56DFF1B1CB9538 /* SherpaOnnxTTSEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaOnnxTTSEngine.swift; sourceTree = "<group>"; };
 		8A0E3B7355E70863C14ABBC1 /* jieba.dict.utf8 */ = {isa = PBXFileReference; path = jieba.dict.utf8; sourceTree = "<group>"; };
-		8A639C74A109E933FB0CF493 /* eu_dict */ = {isa = PBXFileReference; path = eu_dict; sourceTree = "<group>"; };
-		8A8F945561FBA854710A08D7 /* iven4 */ = {isa = PBXFileReference; path = iven4; sourceTree = "<group>"; };
-		8AC4C3C8AF3BA38DA9A64517 /* lfn_dict */ = {isa = PBXFileReference; path = lfn_dict; sourceTree = "<group>"; };
-		8B0D71C557436819670FDF93 /* robosoft4 */ = {isa = PBXFileReference; path = robosoft4; sourceTree = "<group>"; };
 		8B7198488C20830886F21C3D /* TTSControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSControlPanel.swift; sourceTree = "<group>"; };
-		8BC481E4D5E0A01AA737E983 /* he_dict */ = {isa = PBXFileReference; path = he_dict; sourceTree = "<group>"; };
-		8C020058B600B8CF22010487 /* klatt */ = {isa = PBXFileReference; path = klatt; sourceTree = "<group>"; };
-		8D9363ECBFBF192E24BC95EE /* ja_dict */ = {isa = PBXFileReference; path = ja_dict; sourceTree = "<group>"; };
-		8EEAE061763B70D8824B3EDA /* Annie */ = {isa = PBXFileReference; path = Annie; sourceTree = "<group>"; };
-		8FF11ABEEA6DD863D14B4931 /* boris */ = {isa = PBXFileReference; path = boris; sourceTree = "<group>"; };
-		90BAA5E6D237CEDBC4D64F05 /* klatt2 */ = {isa = PBXFileReference; path = klatt2; sourceTree = "<group>"; };
-		90D17BDAAF3436BAB4899A03 /* robosoft2 */ = {isa = PBXFileReference; path = robosoft2; sourceTree = "<group>"; };
-		90D815786C045A35B348E43E /* edward2 */ = {isa = PBXFileReference; path = edward2; sourceTree = "<group>"; };
-		9223A30ECDD02F6C970D4A0D /* sq */ = {isa = PBXFileReference; path = sq; sourceTree = "<group>"; };
 		923E14EB181B453B63C75B39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		925ED225024695192685AACE /* cv_dict */ = {isa = PBXFileReference; path = cv_dict; sourceTree = "<group>"; };
-		935A55DC6A476911E2F4A03D /* ja */ = {isa = PBXFileReference; path = ja; sourceTree = "<group>"; };
-		94439C79191CD6D71CC4A6A7 /* vi-VN-x-south */ = {isa = PBXFileReference; path = "vi-VN-x-south"; sourceTree = "<group>"; };
-		948CB1803CF0EB24792CCF51 /* qdb_dict */ = {isa = PBXFileReference; path = qdb_dict; sourceTree = "<group>"; };
 		948D044AF6DCD93D3E932F10 /* tokens.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = tokens.txt; sourceTree = "<group>"; };
-		94CAA56446E8E00E2E2D7072 /* m1 */ = {isa = PBXFileReference; path = m1; sourceTree = "<group>"; };
-		94DF0ACC24AAF7297737F19E /* Tweaky */ = {isa = PBXFileReference; path = Tweaky; sourceTree = "<group>"; };
-		95125F91B5A9C9B540C55DE6 /* kk_dict */ = {isa = PBXFileReference; path = kk_dict; sourceTree = "<group>"; };
-		958FF8F8D392AE803C1FB8A0 /* cmn_dict */ = {isa = PBXFileReference; path = cmn_dict; sourceTree = "<group>"; };
-		95A61CF43959BB4C1ADAAF74 /* quincy */ = {isa = PBXFileReference; path = quincy; sourceTree = "<group>"; };
-		95C12C6CF5755B73C0B7049F /* ia_dict */ = {isa = PBXFileReference; path = ia_dict; sourceTree = "<group>"; };
-		962F4645AFF7D31CE7D17DE9 /* da_dict */ = {isa = PBXFileReference; path = da_dict; sourceTree = "<group>"; };
-		964B2E91B7705EE16D901749 /* ta_dict */ = {isa = PBXFileReference; path = ta_dict; sourceTree = "<group>"; };
-		966310407D60873BAA84A266 /* Gene */ = {isa = PBXFileReference; path = Gene; sourceTree = "<group>"; };
-		98BC455E8EECA317E4DF9129 /* bpy */ = {isa = PBXFileReference; path = bpy; sourceTree = "<group>"; };
-		9AD16EF5BD34FF6E37F6E9E1 /* nog */ = {isa = PBXFileReference; path = nog; sourceTree = "<group>"; };
-		9AD99EBFFE44C05EC2A3E1AA /* lv_dict */ = {isa = PBXFileReference; path = lv_dict; sourceTree = "<group>"; };
 		9BB53014FD7A0F0C86A53B5F /* QuerySegment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QuerySegment.hpp; sourceTree = "<group>"; };
-		9BF0BB55ACCEE659EB85DC4D /* hu_dict */ = {isa = PBXFileReference; path = hu_dict; sourceTree = "<group>"; };
-		9C645CD749D2D7B9DA93B118 /* intonations */ = {isa = PBXFileReference; path = intonations; sourceTree = "<group>"; };
-		9C7D118A1CC9F37B06244DBE /* Hugo */ = {isa = PBXFileReference; path = Hugo; sourceTree = "<group>"; };
 		9D33EB96FFBC0E0FA7112103 /* date-zh.fst */ = {isa = PBXFileReference; path = "date-zh.fst"; sourceTree = "<group>"; };
-		9D4BA2475EE7CA3434ED291C /* af */ = {isa = PBXFileReference; path = af; sourceTree = "<group>"; };
-		9D94E1AB3EA51B5329BF4596 /* haw */ = {isa = PBXFileReference; path = haw; sourceTree = "<group>"; };
-		9E79639A12B0AD6F33975CA4 /* ro_dict */ = {isa = PBXFileReference; path = ro_dict; sourceTree = "<group>"; };
-		9EC5268E413D755C2BA7EC27 /* fa_dict */ = {isa = PBXFileReference; path = fa_dict; sourceTree = "<group>"; };
-		9F3CD00D7B102A120A5D8EE0 /* pap */ = {isa = PBXFileReference; path = pap; sourceTree = "<group>"; };
-		A08B1270DFD252CE1D601585 /* yue_dict */ = {isa = PBXFileReference; path = yue_dict; sourceTree = "<group>"; };
-		A17659D82986636F9BAA7198 /* yue */ = {isa = PBXFileReference; path = yue; sourceTree = "<group>"; };
-		A1F3455F408C74E6949DF141 /* nl_dict */ = {isa = PBXFileReference; path = nl_dict; sourceTree = "<group>"; };
-		A29A513FD3AA6743315C7E92 /* as */ = {isa = PBXFileReference; path = as; sourceTree = "<group>"; };
-		A34522795DB1880A5906EAED /* hak_dict */ = {isa = PBXFileReference; path = hak_dict; sourceTree = "<group>"; };
-		A3F3D63D95E7093CC4449EC0 /* AnxiousAndy */ = {isa = PBXFileReference; path = AnxiousAndy; sourceTree = "<group>"; };
 		A43F3B6A7870DBEA3E3C6752 /* PreFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PreFilter.hpp; sourceTree = "<group>"; };
-		A48EAADB4C61B1A1D9E879DB /* uk */ = {isa = PBXFileReference; path = uk; sourceTree = "<group>"; };
-		A57EC6E5E171994A953F44F5 /* bn_dict */ = {isa = PBXFileReference; path = bn_dict; sourceTree = "<group>"; };
 		A594904E7FECA38F1B3980C9 /* Condition.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Condition.hpp; sourceTree = "<group>"; };
-		A5EA889CE12CDD8072026A57 /* eo */ = {isa = PBXFileReference; path = eo; sourceTree = "<group>"; };
-		A7DC8F7077DE3610CC0A7F23 /* m5 */ = {isa = PBXFileReference; path = m5; sourceTree = "<group>"; };
-		A8CC85B2F09C6706879DCE4C /* en */ = {isa = PBXFileReference; path = en; sourceTree = "<group>"; };
 		A9ACE21F60E83A9CEB9E8980 /* ForcePublic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForcePublic.hpp; sourceTree = "<group>"; };
-		AA32FDA74C3FAA050DB05CFD /* fi */ = {isa = PBXFileReference; path = fi; sourceTree = "<group>"; };
-		AA5566AB5101C8F264807FF4 /* ba */ = {isa = PBXFileReference; path = ba; sourceTree = "<group>"; };
-		AAC4423107343756DFDB411F /* edward */ = {isa = PBXFileReference; path = edward; sourceTree = "<group>"; };
-		AB8B0BC25E027DFE851EC7E2 /* adam */ = {isa = PBXFileReference; path = adam; sourceTree = "<group>"; };
-		AB8CC66F558E04A992796C94 /* cs */ = {isa = PBXFileReference; path = cs; sourceTree = "<group>"; };
-		AD427B2E4B4FE25AD53EB0DB /* es-419 */ = {isa = PBXFileReference; path = "es-419"; sourceTree = "<group>"; };
 		ADCC6C9A922877AD4B824421 /* LICENSE */ = {isa = PBXFileReference; path = LICENSE; sourceTree = "<group>"; };
-		ADE199B54E56E9AFBFA5E8E9 /* zac */ = {isa = PBXFileReference; path = zac; sourceTree = "<group>"; };
-		AFE66D9B18DAC6ABB849E243 /* klatt3 */ = {isa = PBXFileReference; path = klatt3; sourceTree = "<group>"; };
-		B06D0F28258FC5D39D593BD5 /* m3 */ = {isa = PBXFileReference; path = m3; sourceTree = "<group>"; };
-		B1F6EFB65AE597EB69DEA5AE /* en-GB-x-rp */ = {isa = PBXFileReference; path = "en-GB-x-rp"; sourceTree = "<group>"; };
-		B23202654E88C7D5138639E6 /* hy */ = {isa = PBXFileReference; path = hy; sourceTree = "<group>"; };
-		B2523A53D424FD43814D6E48 /* klatt5 */ = {isa = PBXFileReference; path = klatt5; sourceTree = "<group>"; };
-		B2B32AF5E47CB5D528962655 /* lb */ = {isa = PBXFileReference; path = lb; sourceTree = "<group>"; };
-		B2D7B972E0688FEC4CDA21F3 /* kaukovalta */ = {isa = PBXFileReference; path = kaukovalta; sourceTree = "<group>"; };
-		B2F7F8EFFC124F8B15F46964 /* vi */ = {isa = PBXFileReference; path = vi; sourceTree = "<group>"; };
-		B3013EBE2B89E65B7A256571 /* sk */ = {isa = PBXFileReference; path = sk; sourceTree = "<group>"; };
 		B34FE77A538094B3ABAD3A07 /* onnxruntime.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = onnxruntime.xcframework; path = Frameworks/onnxruntime.xcframework; sourceTree = "<group>"; };
-		B3675F976575791774EC6F04 /* ky */ = {isa = PBXFileReference; path = ky; sourceTree = "<group>"; };
-		B45542302EAD660FC888B240 /* Mike */ = {isa = PBXFileReference; path = Mike; sourceTree = "<group>"; };
-		B4FC4A67B5A84E4A6DFC9C32 /* an */ = {isa = PBXFileReference; path = an; sourceTree = "<group>"; };
-		B5AAFEDA14F7C8B9BC657664 /* ta */ = {isa = PBXFileReference; path = ta; sourceTree = "<group>"; };
 		B625E97449E233A6C2F250F1 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		B6DD8C8C5D05C852A5BFA6BE /* sw_dict */ = {isa = PBXFileReference; path = sw_dict; sourceTree = "<group>"; };
-		B7A22061EDFE5B23E03ED505 /* it_dict */ = {isa = PBXFileReference; path = it_dict; sourceTree = "<group>"; };
-		B7D5A4106B60A89C53F3F5AA /* steph3 */ = {isa = PBXFileReference; path = steph3; sourceTree = "<group>"; };
-		B7D9E820B4C5674012E26C0C /* ur */ = {isa = PBXFileReference; path = ur; sourceTree = "<group>"; };
-		B8316D7D624728567CF708A8 /* phonindex */ = {isa = PBXFileReference; path = phonindex; sourceTree = "<group>"; };
-		B8ED5824519DEE349D2F8BFA /* tt */ = {isa = PBXFileReference; path = tt; sourceTree = "<group>"; };
-		B9AA80BC43E8DC5865B9FB78 /* ht */ = {isa = PBXFileReference; path = ht; sourceTree = "<group>"; };
-		BA642ABC713A7C5CBC11D565 /* ga_dict */ = {isa = PBXFileReference; path = ga_dict; sourceTree = "<group>"; };
 		BAA435F4DDEE7854E1198848 /* BookStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStorageService.swift; sourceTree = "<group>"; };
-		BB4A67E693DBE16E2435CCA9 /* kk */ = {isa = PBXFileReference; path = kk; sourceTree = "<group>"; };
-		BCCD78A0B95C484E6A1561E9 /* ka */ = {isa = PBXFileReference; path = ka; sourceTree = "<group>"; };
-		BE0EFBCA586223D38883495A /* qu */ = {isa = PBXFileReference; path = qu; sourceTree = "<group>"; };
-		BE9817886DD10E3C865FC11C /* grc */ = {isa = PBXFileReference; path = grc; sourceTree = "<group>"; };
-		BEE3670D5B44A53301364AB3 /* da */ = {isa = PBXFileReference; path = da; sourceTree = "<group>"; };
 		BF235534BECAFF1388EF4DDB /* sherpa-onnx.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "sherpa-onnx.xcframework"; path = "Frameworks/sherpa-onnx.xcframework"; sourceTree = "<group>"; };
 		C0368F2D49F5FDB2DB6ADFDD /* SegmentBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SegmentBase.hpp; sourceTree = "<group>"; };
-		C11E8E0CB69FAA380FBD63D7 /* si_dict */ = {isa = PBXFileReference; path = si_dict; sourceTree = "<group>"; };
-		C17327448AB33267B5205DE5 /* Mario */ = {isa = PBXFileReference; path = Mario; sourceTree = "<group>"; };
-		C1BDB179D00CB5DC7C9797FB /* ka_dict */ = {isa = PBXFileReference; path = ka_dict; sourceTree = "<group>"; };
-		C30F4E63F999ED706EDD3EC4 /* mike2 */ = {isa = PBXFileReference; path = mike2; sourceTree = "<group>"; };
-		C56C1C4777B78214C5B04DA0 /* UniRobot */ = {isa = PBXFileReference; path = UniRobot; sourceTree = "<group>"; };
-		C69223F8CEBA90D9C259930B /* te_dict */ = {isa = PBXFileReference; path = te_dict; sourceTree = "<group>"; };
-		C7F4BE9EB641BDFB2EF46D2D /* tt_dict */ = {isa = PBXFileReference; path = tt_dict; sourceTree = "<group>"; };
-		C9099CE5AEC3363F45AC445A /* kok_dict */ = {isa = PBXFileReference; path = kok_dict; sourceTree = "<group>"; };
-		CA562DA76B0ADB37E373C7BB /* am */ = {isa = PBXFileReference; path = am; sourceTree = "<group>"; };
-		CA888AFE7E25E510FECC6365 /* ru-cl */ = {isa = PBXFileReference; path = "ru-cl"; sourceTree = "<group>"; };
-		CABB84C658FEE65EC246C687 /* ro */ = {isa = PBXFileReference; path = ro; sourceTree = "<group>"; };
-		CC0E5C70807351581F421127 /* m8 */ = {isa = PBXFileReference; path = m8; sourceTree = "<group>"; };
-		CE20C734490FCD5468508B34 /* Andrea */ = {isa = PBXFileReference; path = Andrea; sourceTree = "<group>"; };
 		CE2F1E2998B8B9FA5A833BA5 /* idf.dict.utf8 */ = {isa = PBXFileReference; path = idf.dict.utf8; sourceTree = "<group>"; };
-		CE2F600DCE1DE9195123E673 /* robosoft6 */ = {isa = PBXFileReference; path = robosoft6; sourceTree = "<group>"; };
-		D053A0F5B8555D86E00F3193 /* sk_dict */ = {isa = PBXFileReference; path = sk_dict; sourceTree = "<group>"; };
-		D061DBF06C45366BF9BBD707 /* cy */ = {isa = PBXFileReference; path = cy; sourceTree = "<group>"; };
 		D2F001B4217459E381F183DE /* Closure.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Closure.hpp; sourceTree = "<group>"; };
-		D394778760BD2B414D51AE0C /* th */ = {isa = PBXFileReference; path = th; sourceTree = "<group>"; };
 		D3E9E9F114086B2D5F3DB865 /* MixSegment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MixSegment.hpp; sourceTree = "<group>"; };
 		D4430F13D627CAFBD436AF6F /* Unicode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Unicode.hpp; sourceTree = "<group>"; };
-		D469136B067C1AD847B7902E /* te */ = {isa = PBXFileReference; path = te; sourceTree = "<group>"; };
-		D50C7EFC01921F35FF7C8355 /* my */ = {isa = PBXFileReference; path = my; sourceTree = "<group>"; };
 		D5A1E4671C6EC6716D7ED93A /* BookReaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReaderApp.swift; sourceTree = "<group>"; };
-		D5F0B7D0EF02A556A7753C1B /* nci */ = {isa = PBXFileReference; path = nci; sourceTree = "<group>"; };
 		D6475CD416E3B79976B9A8FD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D78495704F21073765C8A11A /* uz */ = {isa = PBXFileReference; path = uz; sourceTree = "<group>"; };
-		D7A6A9574D5551B2754C529B /* be */ = {isa = PBXFileReference; path = be; sourceTree = "<group>"; };
-		D7FA492AD0D382A2B2523845 /* sw */ = {isa = PBXFileReference; path = sw; sourceTree = "<group>"; };
-		D8547AC648578C8200A6199A /* shn_dict */ = {isa = PBXFileReference; path = shn_dict; sourceTree = "<group>"; };
-		D86BB701EFD01496F0E2F30F /* kn_dict */ = {isa = PBXFileReference; path = kn_dict; sourceTree = "<group>"; };
-		D95519A573B9F1ADA0DCCD3C /* ko_dict */ = {isa = PBXFileReference; path = ko_dict; sourceTree = "<group>"; };
-		D97054C0485515D18C2D6381 /* iven */ = {isa = PBXFileReference; path = iven; sourceTree = "<group>"; };
-		DA3F332CF72D697C7AFC3F7F /* hy_dict */ = {isa = PBXFileReference; path = hy_dict; sourceTree = "<group>"; };
-		DA84FA755A68FC6472E5F37A /* cmn-Latn-pinyin */ = {isa = PBXFileReference; path = "cmn-Latn-pinyin"; sourceTree = "<group>"; };
-		DAF916C0DF572ECD12C4CF7F /* lb_dict */ = {isa = PBXFileReference; path = lb_dict; sourceTree = "<group>"; };
-		DBDCEFC8F303622851B5CE0D /* az */ = {isa = PBXFileReference; path = az; sourceTree = "<group>"; };
-		DC71999B4EFF82D0992E0E7E /* f4 */ = {isa = PBXFileReference; path = f4; sourceTree = "<group>"; };
-		DD6A03D021577A12C76E5006 /* belinda */ = {isa = PBXFileReference; path = belinda; sourceTree = "<group>"; };
-		DF119D8775CF98B24C55AA6E /* mr */ = {isa = PBXFileReference; path = mr; sourceTree = "<group>"; };
-		DFBA53DF483FE04E16D9577D /* iven3 */ = {isa = PBXFileReference; path = iven3; sourceTree = "<group>"; };
-		E01D5014F64FA0B697E182C7 /* hak */ = {isa = PBXFileReference; path = hak; sourceTree = "<group>"; };
-		E089F31D0797CB30CA93C343 /* en-US */ = {isa = PBXFileReference; path = "en-US"; sourceTree = "<group>"; };
-		E0907960D689FD276BB6099A /* grandma */ = {isa = PBXFileReference; path = grandma; sourceTree = "<group>"; };
-		E29372FD3290C858D81D8928 /* sq_dict */ = {isa = PBXFileReference; path = sq_dict; sourceTree = "<group>"; };
-		E2FA432C8962505F68BC2DB8 /* cmn */ = {isa = PBXFileReference; path = cmn; sourceTree = "<group>"; };
-		E3020D9BFE4EC4F2E0A71FF6 /* Jacky */ = {isa = PBXFileReference; path = Jacky; sourceTree = "<group>"; };
-		E3B9DF2C48A67791C06A4034 /* tn */ = {isa = PBXFileReference; path = tn; sourceTree = "<group>"; };
-		E3EC31C5A2C5C84369A7C7C2 /* haw_dict */ = {isa = PBXFileReference; path = haw_dict; sourceTree = "<group>"; };
-		E42246FF495CCED2AACD0471 /* rob */ = {isa = PBXFileReference; path = rob; sourceTree = "<group>"; };
-		E4FE93565026AD7349D535CB /* robert */ = {isa = PBXFileReference; path = robert; sourceTree = "<group>"; };
+		DB8C6E063A44B331B77F3E09 /* espeak-ng-data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "espeak-ng-data"; path = "BookReader/Resources/tts-models/espeak-ng-data"; sourceTree = SOURCE_ROOT; };
 		E73459BDF149C8578743348A /* Logging.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Logging.hpp; sourceTree = "<group>"; };
-		E8130A9B20CC822D2A67BAAF /* mk_dict */ = {isa = PBXFileReference; path = mk_dict; sourceTree = "<group>"; };
-		E84DB8E7A462A94AD9FD0BE7 /* RicishayMax3 */ = {isa = PBXFileReference; path = RicishayMax3; sourceTree = "<group>"; };
-		E8C0BED58FD8A8BBE8F644B8 /* sl */ = {isa = PBXFileReference; path = sl; sourceTree = "<group>"; };
-		E8E28D3A412B11E2049264BA /* ca */ = {isa = PBXFileReference; path = ca; sourceTree = "<group>"; };
-		EADEF436D74D6F6C29C88D56 /* tn_dict */ = {isa = PBXFileReference; path = tn_dict; sourceTree = "<group>"; };
-		EBC37F5D41436AA35B7D29C5 /* en-029 */ = {isa = PBXFileReference; path = "en-029"; sourceTree = "<group>"; };
-		EC073B7941DE75990078628F /* announcer */ = {isa = PBXFileReference; path = announcer; sourceTree = "<group>"; };
-		ECF484F9D9EA9ABD0D6A0CBE /* chr_dict */ = {isa = PBXFileReference; path = chr_dict; sourceTree = "<group>"; };
-		ED146BB006D1DB7E5EDA185D /* az_dict */ = {isa = PBXFileReference; path = az_dict; sourceTree = "<group>"; };
-		EE19F27DEB984E1BF422AA87 /* quc_dict */ = {isa = PBXFileReference; path = quc_dict; sourceTree = "<group>"; };
-		EF3C08FC413508AB56117FBB /* pa_dict */ = {isa = PBXFileReference; path = pa_dict; sourceTree = "<group>"; };
 		EF8600B49B4A7B791620535E /* BookReaderTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BookReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFFAB92FE95819F2267A3158 /* mto */ = {isa = PBXFileReference; path = mto; sourceTree = "<group>"; };
-		F08EDE05A54E5DB7ADF07BD8 /* Diogo */ = {isa = PBXFileReference; path = Diogo; sourceTree = "<group>"; };
-		F0B48CCD8F2D741B5415874D /* fi_dict */ = {isa = PBXFileReference; path = fi_dict; sourceTree = "<group>"; };
-		F1284A43B151DF2CB0E52358 /* fr_dict */ = {isa = PBXFileReference; path = fr_dict; sourceTree = "<group>"; };
-		F1CED3E3825845FE04958050 /* sandro */ = {isa = PBXFileReference; path = sandro; sourceTree = "<group>"; };
-		F1F9F79AF1DA4AE46DD5FD2B /* it */ = {isa = PBXFileReference; path = it; sourceTree = "<group>"; };
-		F402E513A7B1241DDCB41B6A /* smj_dict */ = {isa = PBXFileReference; path = smj_dict; sourceTree = "<group>"; };
-		F55C10AFC84448FDB7571802 /* lfn */ = {isa = PBXFileReference; path = lfn; sourceTree = "<group>"; };
-		F5A6B871A1A9E6E7F269DF41 /* kn */ = {isa = PBXFileReference; path = kn; sourceTree = "<group>"; };
-		F67D41FE5BDB2971CC731E8E /* sd */ = {isa = PBXFileReference; path = sd; sourceTree = "<group>"; };
-		F715661161A6CC9C67874A08 /* david */ = {isa = PBXFileReference; path = david; sourceTree = "<group>"; };
 		F739C8BFD953D52799B69BB0 /* hmm_model.utf8 */ = {isa = PBXFileReference; path = hmm_model.utf8; sourceTree = "<group>"; };
-		F804DA9E0C8F18417C13EE1A /* no_dict */ = {isa = PBXFileReference; path = no_dict; sourceTree = "<group>"; };
-		F8D561ABF4AA96523F011ECC /* gn */ = {isa = PBXFileReference; path = gn; sourceTree = "<group>"; };
-		F9CB6A560307E9B98EC8926B /* he */ = {isa = PBXFileReference; path = he; sourceTree = "<group>"; };
-		F9FA9D10F372F8BB5C40C00E /* jbo_dict */ = {isa = PBXFileReference; path = jbo_dict; sourceTree = "<group>"; };
-		FAAEFFA049E18B7C7CBFD8BB /* max */ = {isa = PBXFileReference; path = max; sourceTree = "<group>"; };
-		FAD05E9FD00C8906BD849EB5 /* kl */ = {isa = PBXFileReference; path = kl; sourceTree = "<group>"; };
-		FBB5D15F4CED5320CCF559FE /* Storm */ = {isa = PBXFileReference; path = Storm; sourceTree = "<group>"; };
 		FC198ECE3289E67E7144D8B0 /* AudioPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
-		FC1CD5330971441D4B25112D /* robosoft */ = {isa = PBXFileReference; path = robosoft; sourceTree = "<group>"; };
-		FC9B3CC7BFC0E210ED6608AF /* bs */ = {isa = PBXFileReference; path = bs; sourceTree = "<group>"; };
 		FD97BE380674314767EC77FF /* LocalVector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocalVector.hpp; sourceTree = "<group>"; };
-		FDB3556BD03458F547AE9D89 /* en-US-nyc */ = {isa = PBXFileReference; path = "en-US-nyc"; sourceTree = "<group>"; };
-		FDC6AF5C45F40D21AD887BC8 /* om */ = {isa = PBXFileReference; path = om; sourceTree = "<group>"; };
-		FEAD1B064CC06F4BA9B106E3 /* ms_dict */ = {isa = PBXFileReference; path = ms_dict; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,55 +181,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0435B862DD321814C7AAEB3F /* roa */ = {
-			isa = PBXGroup;
-			children = (
-				B4FC4A67B5A84E4A6DFC9C32 /* an */,
-				E8E28D3A412B11E2049264BA /* ca */,
-				7F759E4ED58F663219D1AD30 /* es */,
-				AD427B2E4B4FE25AD53EB0DB /* es-419 */,
-				8154B4CDFA37BF54078699DB /* fr */,
-				0C4206A2A90A3A3264002281 /* fr-BE */,
-				77388A24B0730B85AA4732E9 /* fr-CH */,
-				B9AA80BC43E8DC5865B9FB78 /* ht */,
-				F1F9F79AF1DA4AE46DD5FD2B /* it */,
-				9F3CD00D7B102A120A5D8EE0 /* pap */,
-				760D3F4C6E878B6EA116EC4E /* pt */,
-				263C7C93CCB9AF75EA5A33A6 /* pt-BR */,
-				CABB84C658FEE65EC246C687 /* ro */,
-			);
-			path = roa;
-			sourceTree = "<group>";
-		};
-		06203FFF40A050F991C01F91 /* gmw */ = {
-			isa = PBXGroup;
-			children = (
-				9D4BA2475EE7CA3434ED291C /* af */,
-				03CEEAC3071D0EF2B4266B4E /* de */,
-				A8CC85B2F09C6706879DCE4C /* en */,
-				EBC37F5D41436AA35B7D29C5 /* en-029 */,
-				1DFCFA3DE58E1BB2ADEEDDAF /* en-GB-scotland */,
-				6F340DDA96B36BA3F8D0EF75 /* en-GB-x-gbclan */,
-				0E18F4790E5A46B70183ED27 /* en-GB-x-gbcwmd */,
-				B1F6EFB65AE597EB69DEA5AE /* en-GB-x-rp */,
-				E089F31D0797CB30CA93C343 /* en-US */,
-				FDB3556BD03458F547AE9D89 /* en-US-nyc */,
-				B2B32AF5E47CB5D528962655 /* lb */,
-				607032BD5377980182BED6C8 /* nl */,
-			);
-			path = gmw;
-			sourceTree = "<group>";
-		};
-		06478D0C92137124FF2D7A39 /* ine */ = {
-			isa = PBXGroup;
-			children = (
-				B23202654E88C7D5138639E6 /* hy */,
-				41E2164BB19203718FF11E47 /* hyw */,
-				9223A30ECDD02F6C970D4A0D /* sq */,
-			);
-			path = ine;
-			sourceTree = "<group>";
-		};
 		105197FE6C40E55B298DD1D6 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,31 +196,6 @@
 			path = limonp;
 			sourceTree = "<group>";
 		};
-		152479823C442E72D359FA12 /* miz */ = {
-			isa = PBXGroup;
-			children = (
-				EFFAB92FE95819F2267A3158 /* mto */,
-			);
-			path = miz;
-			sourceTree = "<group>";
-		};
-		15F1BF204D9085C5E7098982 /* art */ = {
-			isa = PBXGroup;
-			children = (
-				A5EA889CE12CDD8072026A57 /* eo */,
-				353282DE972555EE70F3C2A2 /* ia */,
-				111FF93D9C5C43A8D112F74D /* io */,
-				4B8609C9A0A76C89091B3451 /* jbo */,
-				F55C10AFC84448FDB7571802 /* lfn */,
-				28BA2FB1482D237E066235E5 /* piqd */,
-				589AB6E430FE20299D2AF2EE /* py */,
-				7632EF2F2DC20732750F9FA7 /* qdb */,
-				2216C35B133483F8517398C9 /* qya */,
-				6C4EB42E69043396289F0DCD /* sjn */,
-			);
-			path = art;
-			sourceTree = "<group>";
-		};
 		1D4ED12B9D11E6488D9839A2 /* Bridging */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,27 +204,6 @@
 				0E8C040D4AAA5810213D19EA /* JiebaWrapper.mm */,
 			);
 			path = Bridging;
-			sourceTree = "<group>";
-		};
-		1F6B3926A36ADD0562CDCF69 /* dra */ = {
-			isa = PBXGroup;
-			children = (
-				F5A6B871A1A9E6E7F269DF41 /* kn */,
-				5BE4436BDD5D7953FD58EB82 /* ml */,
-				B5AAFEDA14F7C8B9BC657664 /* ta */,
-				D469136B067C1AD847B7902E /* te */,
-			);
-			path = dra;
-			sourceTree = "<group>";
-		};
-		23447B1CA20FD3310193E441 /* zlw */ = {
-			isa = PBXGroup;
-			children = (
-				AB8CC66F558E04A992796C94 /* cs */,
-				2412EA5409410FECADEC2A5E /* pl */,
-				B3013EBE2B89E65B7A256571 /* sk */,
-			);
-			path = zlw;
 			sourceTree = "<group>";
 		};
 		25C0BBA23BB6CCDC5C577F8B /* limonp */ = {
@@ -693,30 +245,10 @@
 				EB153AB7EB4158334BC27DD0 /* BookReader */,
 				CCE908ED946E498B30CCD76A /* BookReaderTests */,
 				41C13C4340F3D5ABA0D38C1F /* BookReaderUITests */,
+				DB8C6E063A44B331B77F3E09 /* espeak-ng-data */,
 				BC4DDED97056AC2351692DAF /* Frameworks */,
 				C9F4CBB2D05F0D9EBFF33A6F /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		37AE83B9C9CB000FABDAE87F /* myn */ = {
-			isa = PBXGroup;
-			children = (
-				87F6688C153D8C4815E38089 /* quc */,
-			);
-			path = myn;
-			sourceTree = "<group>";
-		};
-		4092FB697C755BDD0543D0AF /* sit */ = {
-			isa = PBXGroup;
-			children = (
-				E2FA432C8962505F68BC2DB8 /* cmn */,
-				DA84FA755A68FC6472E5F37A /* cmn-Latn-pinyin */,
-				E01D5014F64FA0B697E182C7 /* hak */,
-				D50C7EFC01921F35FF7C8355 /* my */,
-				A17659D82986636F9BAA7198 /* yue */,
-				6621B7D54C6F8984E9F623A6 /* yue-Latn-jyutping */,
-			);
-			path = sit;
 			sourceTree = "<group>";
 		};
 		41C13C4340F3D5ABA0D38C1F /* BookReaderUITests */ = {
@@ -737,26 +269,6 @@
 			path = TTS;
 			sourceTree = "<group>";
 		};
-		4D2F06E78D300A7E971964B7 /* zle */ = {
-			isa = PBXGroup;
-			children = (
-				D7A6A9574D5551B2754C529B /* be */,
-				777279903CFF5A513E5E8712 /* ru */,
-				CA888AFE7E25E510FECC6365 /* ru-cl */,
-				85B97B258E2764B43582A2AC /* ru-LV */,
-				A48EAADB4C61B1A1D9E879DB /* uk */,
-			);
-			path = zle;
-			sourceTree = "<group>";
-		};
-		4F116EE6E4CC0491274B05D8 /* itc */ = {
-			isa = PBXGroup;
-			children = (
-				873AF8A8001A3A21001FBBA3 /* la */,
-			);
-			path = itc;
-			sourceTree = "<group>";
-		};
 		528BFA163C47EE9AAACDDC51 /* Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,114 +277,6 @@
 				1C35EF431DD3C3C22B8F191A /* LibraryViewModel.swift */,
 			);
 			path = Library;
-			sourceTree = "<group>";
-		};
-		57199BD7DA7EDD208D79BE0E /* urj */ = {
-			isa = PBXGroup;
-			children = (
-				523580547B9C5C32CCF278E1 /* et */,
-				AA32FDA74C3FAA050DB05CFD /* fi */,
-				788EAB4978850ED1A78353B6 /* hu */,
-				2211868009BFE2CE70A7868F /* smj */,
-			);
-			path = urj;
-			sourceTree = "<group>";
-		};
-		5ADCDFF6FDDA4AFE6D3A8838 /* cel */ = {
-			isa = PBXGroup;
-			children = (
-				D061DBF06C45366BF9BBD707 /* cy */,
-				69A9C7C27869D846CAC82CFE /* ga */,
-				1529C4AAB6982B28D039FB53 /* gd */,
-			);
-			path = cel;
-			sourceTree = "<group>";
-		};
-		5D586C5824F6281683C7046F /* iro */ = {
-			isa = PBXGroup;
-			children = (
-				47D98FCE4462F2FA36BF7CF1 /* chr */,
-			);
-			path = iro;
-			sourceTree = "<group>";
-		};
-		5F5048F1E182285E1078D3B1 /* esx */ = {
-			isa = PBXGroup;
-			children = (
-				FAD05E9FD00C8906BD849EB5 /* kl */,
-			);
-			path = esx;
-			sourceTree = "<group>";
-		};
-		6021631C7053972BE67E11BC /* lang */ = {
-			isa = PBXGroup;
-			children = (
-				B6A31F6FC5BC9B0C690A7D34 /* aav */,
-				15F1BF204D9085C5E7098982 /* art */,
-				E1FABC69DBD39074223A78C7 /* azc */,
-				BD6B12362D8C3615CB43DEA5 /* bat */,
-				67E1DCB41969254BD25EF1A4 /* bnt */,
-				BBE1FEF312A8CB72AB73C59C /* ccs */,
-				5ADCDFF6FDDA4AFE6D3A8838 /* cel */,
-				B79CE7C41BF519712939E065 /* cus */,
-				1F6B3926A36ADD0562CDCF69 /* dra */,
-				5F5048F1E182285E1078D3B1 /* esx */,
-				A35A9EBE2EB2781DDDB27207 /* gmq */,
-				06203FFF40A050F991C01F91 /* gmw */,
-				F41D190ABB9C174E0DE40C91 /* grk */,
-				DCC943EA512E77A310CB2A5A /* inc */,
-				06478D0C92137124FF2D7A39 /* ine */,
-				B8FE8CD378CE2C5E5FA8C3DE /* ira */,
-				5D586C5824F6281683C7046F /* iro */,
-				4F116EE6E4CC0491274B05D8 /* itc */,
-				A614A21BDF85CBB7E9D22A06 /* jpx */,
-				B26C2FFC203637AC0DE35686 /* map */,
-				152479823C442E72D359FA12 /* miz */,
-				37AE83B9C9CB000FABDAE87F /* myn */,
-				68305519E118958F0446AE70 /* poz */,
-				0435B862DD321814C7AAEB3F /* roa */,
-				A72EEC4DB2DD76D7142D3693 /* sai */,
-				BA091EC4D7B3E05038949FFD /* sem */,
-				4092FB697C755BDD0543D0AF /* sit */,
-				68D395F5A722EF2CA398D125 /* tai */,
-				70371E4A485888F2BABAF67D /* trk */,
-				57199BD7DA7EDD208D79BE0E /* urj */,
-				4D2F06E78D300A7E971964B7 /* zle */,
-				8AF1404320EAA2F859F6BEB2 /* zls */,
-				23447B1CA20FD3310193E441 /* zlw */,
-				1DC12458E39BB3FD2BE4C365 /* eu */,
-				54F9BF3208C318072F1E9479 /* ko */,
-				BE0EFBCA586223D38883495A /* qu */,
-			);
-			path = lang;
-			sourceTree = "<group>";
-		};
-		67E1DCB41969254BD25EF1A4 /* bnt */ = {
-			isa = PBXGroup;
-			children = (
-				D7FA492AD0D382A2B2523845 /* sw */,
-				E3B9DF2C48A67791C06A4034 /* tn */,
-			);
-			path = bnt;
-			sourceTree = "<group>";
-		};
-		68305519E118958F0446AE70 /* poz */ = {
-			isa = PBXGroup;
-			children = (
-				8305F762D345E0B88AD73F6D /* id */,
-				4B8981F00E147BC5B0438A2B /* mi */,
-				06F642D8B3E4B39C70018B34 /* ms */,
-			);
-			path = poz;
-			sourceTree = "<group>";
-		};
-		68D395F5A722EF2CA398D125 /* tai */ = {
-			isa = PBXGroup;
-			children = (
-				5D6B3FDFFDF2C1BFE2F2BF28 /* shn */,
-				D394778760BD2B414D51AE0C /* th */,
-			);
-			path = tai;
 			sourceTree = "<group>";
 		};
 		6A2DFD0881D464F1126CFF39 /* cppjieba */ = {
@@ -898,24 +302,6 @@
 			path = cppjieba;
 			sourceTree = "<group>";
 		};
-		70371E4A485888F2BABAF67D /* trk */ = {
-			isa = PBXGroup;
-			children = (
-				DBDCEFC8F303622851B5CE0D /* az */,
-				AA5566AB5101C8F264807FF4 /* ba */,
-				36E90A8A24275804322DE89E /* cv */,
-				BB4A67E693DBE16E2435CCA9 /* kk */,
-				B3675F976575791774EC6F04 /* ky */,
-				9AD16EF5BD34FF6E37F6E9E1 /* nog */,
-				5230AC59B33F4A20C1EECE23 /* tk */,
-				47443849ACD7E7BB08F58E26 /* tr */,
-				B8ED5824519DEE349D2F8BFA /* tt */,
-				4EFA90E563D1602B7523D417 /* ug */,
-				D78495704F21073765C8A11A /* uz */,
-			);
-			path = trk;
-			sourceTree = "<group>";
-		};
 		86685C299F8CA9D5FC8D8CBC /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -923,46 +309,6 @@
 				4EE0C59D04765BD3F9BEB09D /* ReadingProgress.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		8AF1404320EAA2F859F6BEB2 /* zls */ = {
-			isa = PBXGroup;
-			children = (
-				11DCFE11A523DE7FC411FA3F /* bg */,
-				FC9B3CC7BFC0E210ED6608AF /* bs */,
-				7E75C2C26BA6FD920C4B840C /* hr */,
-				7D0AAF2CA15008A7DEDCA3AF /* mk */,
-				E8C0BED58FD8A8BBE8F644B8 /* sl */,
-				2063C9F7E5BEAB9168B29132 /* sr */,
-			);
-			path = zls;
-			sourceTree = "<group>";
-		};
-		A35A9EBE2EB2781DDDB27207 /* gmq */ = {
-			isa = PBXGroup;
-			children = (
-				BEE3670D5B44A53301364AB3 /* da */,
-				5459065EDEEAAC0ED2A8F036 /* is */,
-				7765D83C9C2E26DDB8E106F9 /* nb */,
-				71B2699B438CA3E2CF1CFCC1 /* sv */,
-			);
-			path = gmq;
-			sourceTree = "<group>";
-		};
-		A614A21BDF85CBB7E9D22A06 /* jpx */ = {
-			isa = PBXGroup;
-			children = (
-				935A55DC6A476911E2F4A03D /* ja */,
-			);
-			path = jpx;
-			sourceTree = "<group>";
-		};
-		A72EEC4DB2DD76D7142D3693 /* sai */ = {
-			isa = PBXGroup;
-			children = (
-				F8D561ABF4AA96523F011ECC /* gn */,
-			);
-			path = sai;
 			sourceTree = "<group>";
 		};
 		AEA19C89A360F6308BD6021E /* CppJieba */ = {
@@ -976,18 +322,9 @@
 			path = CppJieba;
 			sourceTree = "<group>";
 		};
-		B26C2FFC203637AC0DE35686 /* map */ = {
-			isa = PBXGroup;
-			children = (
-				9D94E1AB3EA51B5329BF4596 /* haw */,
-			);
-			path = map;
-			sourceTree = "<group>";
-		};
 		B35479D538A22B0A63A90468 /* tts-models */ = {
 			isa = PBXGroup;
 			children = (
-				CE03266C00CAF04C7AF71901 /* espeak-ng-data */,
 				9D33EB96FFBC0E0FA7112103 /* date-zh.fst */,
 				60315E7C6FA5C12A378AADDA /* lexicon-gb-en.txt */,
 				05D8CF92D2B35A79D736185A /* lexicon-us-en.txt */,
@@ -1003,16 +340,6 @@
 			path = "tts-models";
 			sourceTree = "<group>";
 		};
-		B6A31F6FC5BC9B0C690A7D34 /* aav */ = {
-			isa = PBXGroup;
-			children = (
-				B2F7F8EFFC124F8B15F46964 /* vi */,
-				216363FD680EE5FEDEEA2AF9 /* vi-VN-x-central */,
-				94439C79191CD6D71CC4A6A7 /* vi-VN-x-south */,
-			);
-			path = aav;
-			sourceTree = "<group>";
-		};
 		B725DA0FDCF1C1BFB303608F /* Segmentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1020,14 +347,6 @@
 				6C483CEE825C96227F2B29BF /* JiebaSegmenter.swift */,
 			);
 			path = Segmentation;
-			sourceTree = "<group>";
-		};
-		B79CE7C41BF519712939E065 /* cus */ = {
-			isa = PBXGroup;
-			children = (
-				FDC6AF5C45F40D21AD887BC8 /* om */,
-			);
-			path = cus;
 			sourceTree = "<group>";
 		};
 		B8D96BC40EC0D5E4BCA49F35 /* Reader */ = {
@@ -1040,35 +359,6 @@
 			path = Reader;
 			sourceTree = "<group>";
 		};
-		B8FE8CD378CE2C5E5FA8C3DE /* ira */ = {
-			isa = PBXGroup;
-			children = (
-				59D71D0CC8588D5E58D8B93E /* fa */,
-				72A72E20851A4969B92E1354 /* fa-Latn */,
-				69183D5657F322DC4C77C832 /* ku */,
-			);
-			path = ira;
-			sourceTree = "<group>";
-		};
-		BA091EC4D7B3E05038949FFD /* sem */ = {
-			isa = PBXGroup;
-			children = (
-				CA562DA76B0ADB37E373C7BB /* am */,
-				56D975C1D3302083C362F588 /* ar */,
-				F9CB6A560307E9B98EC8926B /* he */,
-				56649B3AA27E7EBD16D5DB86 /* mt */,
-			);
-			path = sem;
-			sourceTree = "<group>";
-		};
-		BBE1FEF312A8CB72AB73C59C /* ccs */ = {
-			isa = PBXGroup;
-			children = (
-				BCCD78A0B95C484E6A1561E9 /* ka */,
-			);
-			path = ccs;
-			sourceTree = "<group>";
-		};
 		BC4DDED97056AC2351692DAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1076,16 +366,6 @@
 				BF235534BECAFF1388EF4DDB /* sherpa-onnx.xcframework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BD6B12362D8C3615CB43DEA5 /* bat */ = {
-			isa = PBXGroup;
-			children = (
-				6658DD690C47361F8445665A /* lt */,
-				6CD453C0D3B3EA9055B6E447 /* ltg */,
-				1890CCFF32CA0F26D4FE7C07 /* lv */,
-			);
-			path = bat;
 			sourceTree = "<group>";
 		};
 		C028B6AB8118E16391A69E8F /* App */ = {
@@ -1116,133 +396,6 @@
 			path = BookReaderTests;
 			sourceTree = "<group>";
 		};
-		CE03266C00CAF04C7AF71901 /* espeak-ng-data */ = {
-			isa = PBXGroup;
-			children = (
-				6021631C7053972BE67E11BC /* lang */,
-				F9AE7C677F8DB9C834DDB522 /* voices */,
-				5872F6FFBD070875AB898423 /* af_dict */,
-				7E2B9B4F02C8BC10E16F2F7A /* am_dict */,
-				1536DB47BDBE03F9C21723EA /* an_dict */,
-				05FF6CFAD3937073D6412C02 /* ar_dict */,
-				7320FDA617AE35384BE46780 /* as_dict */,
-				ED146BB006D1DB7E5EDA185D /* az_dict */,
-				87CAEB156D90D93F3DD212D6 /* ba_dict */,
-				5967E6865B5E58E79FDA1CBB /* be_dict */,
-				3E02CE63CC447ACDBC5A55DD /* bg_dict */,
-				A57EC6E5E171994A953F44F5 /* bn_dict */,
-				540A54AAFA879FF4B5047E66 /* bpy_dict */,
-				08B3CFDDABA4FB2ACFC38BA3 /* bs_dict */,
-				13E9FE1737C232594CF38388 /* ca_dict */,
-				ECF484F9D9EA9ABD0D6A0CBE /* chr_dict */,
-				958FF8F8D392AE803C1FB8A0 /* cmn_dict */,
-				5E25CAD2F6C5612117DF397E /* cs_dict */,
-				925ED225024695192685AACE /* cv_dict */,
-				62986066B7100A5A32FAB36B /* cy_dict */,
-				962F4645AFF7D31CE7D17DE9 /* da_dict */,
-				139F0F95E8A8156F16BD89D1 /* de_dict */,
-				7F24EB78CA75362AA4855416 /* el_dict */,
-				0BB82FBB08C233DFD6988DC9 /* en_dict */,
-				74E8F635AA39E268CE67BDD4 /* eo_dict */,
-				12142D47D64D3189ACF0D599 /* es_dict */,
-				228FA10552D41B92DDC5F540 /* et_dict */,
-				8A639C74A109E933FB0CF493 /* eu_dict */,
-				9EC5268E413D755C2BA7EC27 /* fa_dict */,
-				F0B48CCD8F2D741B5415874D /* fi_dict */,
-				F1284A43B151DF2CB0E52358 /* fr_dict */,
-				BA642ABC713A7C5CBC11D565 /* ga_dict */,
-				21653E7A6F9FAE411BBFB77D /* gd_dict */,
-				183AE3668BDCAEA07DD5A9FC /* gn_dict */,
-				23FCE771ECF406B5A12C56A1 /* grc_dict */,
-				12BAFA0439308C974C389265 /* gu_dict */,
-				A34522795DB1880A5906EAED /* hak_dict */,
-				E3EC31C5A2C5C84369A7C7C2 /* haw_dict */,
-				8BC481E4D5E0A01AA737E983 /* he_dict */,
-				6B29193B987E5CEE1338A75E /* hi_dict */,
-				3AEBFCAFD88C552004EED6D6 /* hr_dict */,
-				2860A9A51C9DA695AF190E6D /* ht_dict */,
-				9BF0BB55ACCEE659EB85DC4D /* hu_dict */,
-				DA3F332CF72D697C7AFC3F7F /* hy_dict */,
-				95C12C6CF5755B73C0B7049F /* ia_dict */,
-				0C3B1DDDEEECCE8FBB1414D9 /* id_dict */,
-				9C645CD749D2D7B9DA93B118 /* intonations */,
-				15E0B2988ED3EDB54E21C478 /* io_dict */,
-				4D397717F156CF1C06976EC8 /* is_dict */,
-				B7A22061EDFE5B23E03ED505 /* it_dict */,
-				8D9363ECBFBF192E24BC95EE /* ja_dict */,
-				F9FA9D10F372F8BB5C40C00E /* jbo_dict */,
-				C1BDB179D00CB5DC7C9797FB /* ka_dict */,
-				95125F91B5A9C9B540C55DE6 /* kk_dict */,
-				248ADF97576B1711FE8A84E0 /* kl_dict */,
-				D86BB701EFD01496F0E2F30F /* kn_dict */,
-				D95519A573B9F1ADA0DCCD3C /* ko_dict */,
-				C9099CE5AEC3363F45AC445A /* kok_dict */,
-				6D0BDFCD397B79508F12499C /* ku_dict */,
-				08065A339BF455C7FA089C3C /* ky_dict */,
-				74CF0C7D133D9521A4ABB61F /* la_dict */,
-				DAF916C0DF572ECD12C4CF7F /* lb_dict */,
-				8AC4C3C8AF3BA38DA9A64517 /* lfn_dict */,
-				264BA6339F9FE36B1BCD6BE2 /* lt_dict */,
-				9AD99EBFFE44C05EC2A3E1AA /* lv_dict */,
-				1CC96208C823B7E3F52DD6A4 /* mi_dict */,
-				E8130A9B20CC822D2A67BAAF /* mk_dict */,
-				08EE61FD92C268DF3031DD24 /* ml_dict */,
-				8627AD5C3494D49B39A5E5A3 /* mr_dict */,
-				FEAD1B064CC06F4BA9B106E3 /* ms_dict */,
-				1270A0C1E57D10512852933F /* mt_dict */,
-				243E5ED07269B9FCBE6B4B8E /* mto_dict */,
-				3B66AE24823D26DAD07FF3E1 /* my_dict */,
-				3F4F3FB60DE4C4475AF72385 /* nci_dict */,
-				6CD36D56F143E69ED9328BD1 /* ne_dict */,
-				A1F3455F408C74E6949DF141 /* nl_dict */,
-				F804DA9E0C8F18417C13EE1A /* no_dict */,
-				828EFB2584786E4B60DA8523 /* nog_dict */,
-				2ADD71E592D1B5DAC68A047B /* om_dict */,
-				27617E0EF420467E73BA3CAE /* or_dict */,
-				EF3C08FC413508AB56117FBB /* pa_dict */,
-				41D0DD895C7C78C6125B3F33 /* pap_dict */,
-				7609152256D5B178B0B48D3F /* phondata */,
-				0500F3948D06364B6026CC59 /* phondata-manifest */,
-				B8316D7D624728567CF708A8 /* phonindex */,
-				5864779D86817481B3B29A00 /* phontab */,
-				749FAEAFEB93F4C1B3183D14 /* piqd_dict */,
-				8790652D7A73446B8C89188F /* pl_dict */,
-				1C797DFF2AA738242488556D /* pt_dict */,
-				1416928B24365EB06DAF0D05 /* py_dict */,
-				948CB1803CF0EB24792CCF51 /* qdb_dict */,
-				263DF9DFAC088C9847351EE7 /* qu_dict */,
-				EE19F27DEB984E1BF422AA87 /* quc_dict */,
-				14FA4A1F56F26C756A89BE1B /* qya_dict */,
-				9E79639A12B0AD6F33975CA4 /* ro_dict */,
-				5AFC76821D72C6D1EEA15949 /* ru_dict */,
-				25C373C627FC8BDCE0A51E94 /* sd_dict */,
-				D8547AC648578C8200A6199A /* shn_dict */,
-				C11E8E0CB69FAA380FBD63D7 /* si_dict */,
-				6E019C98AD4B5FD167C68941 /* sjn_dict */,
-				D053A0F5B8555D86E00F3193 /* sk_dict */,
-				0352516992E38D1CF85C18AE /* sl_dict */,
-				F402E513A7B1241DDCB41B6A /* smj_dict */,
-				E29372FD3290C858D81D8928 /* sq_dict */,
-				53B15AA7480F71E29110EE92 /* sr_dict */,
-				697DF1739C8E6CA5276C5D3A /* sv_dict */,
-				B6DD8C8C5D05C852A5BFA6BE /* sw_dict */,
-				964B2E91B7705EE16D901749 /* ta_dict */,
-				C69223F8CEBA90D9C259930B /* te_dict */,
-				743346AE4997FBBDA4CD833F /* th_dict */,
-				403A8EFEE18772BA58836DB8 /* tk_dict */,
-				EADEF436D74D6F6C29C88D56 /* tn_dict */,
-				13CB6BDC1976B69C30BFD882 /* tr_dict */,
-				C7F4BE9EB641BDFB2EF46D2D /* tt_dict */,
-				10A2464AB5900FD6AED881BE /* ug_dict */,
-				3E68B0D39E57EFF99E6D6C2D /* uk_dict */,
-				6203E4F4B6B2F9A47A010CE2 /* ur_dict */,
-				32CBFB8151A43AEC9435256B /* uz_dict */,
-				166AF6FA95DC99459AC01A2E /* vi_dict */,
-				A08B1270DFD252CE1D601585 /* yue_dict */,
-			);
-			path = "espeak-ng-data";
-			sourceTree = "<group>";
-		};
 		CE52483A57AC935BB67FF921 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1251,145 +404,6 @@
 				42C5ABC1E802F16B42C6918D /* TTS */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		DCC943EA512E77A310CB2A5A /* inc */ = {
-			isa = PBXGroup;
-			children = (
-				A29A513FD3AA6743315C7E92 /* as */,
-				470A0EFDAB48DEE8BD3F73DD /* bn */,
-				98BC455E8EECA317E4DF9129 /* bpy */,
-				68E4283339D2A50BB31050DA /* gu */,
-				517F88F76460E6882AD5CB81 /* hi */,
-				1D62C4522786511923D0C34C /* kok */,
-				DF119D8775CF98B24C55AA6E /* mr */,
-				69F9458B5810F8F1CB69BEFA /* ne */,
-				7A82026AFEEEF8F241D62340 /* or */,
-				504CBF3676711F2A98D850D6 /* pa */,
-				F67D41FE5BDB2971CC731E8E /* sd */,
-				02BA79049E6A0EFF1B51A036 /* si */,
-				B7D9E820B4C5674012E26C0C /* ur */,
-			);
-			path = inc;
-			sourceTree = "<group>";
-		};
-		E1E478A2AD382101F07A4E59 /* !v */ = {
-			isa = PBXGroup;
-			children = (
-				AB8B0BC25E027DFE851EC7E2 /* adam */,
-				241A246EE6306DC519312F6E /* Alex */,
-				2BF747DDD7360562AACD7359 /* Alicia */,
-				CE20C734490FCD5468508B34 /* Andrea */,
-				308F08396A4B01B20F74EDED /* Andy */,
-				76FD9F9A5936B30206C4CFFD /* anika */,
-				02F4B164B1FC45BE27249C72 /* anikaRobot */,
-				8EEAE061763B70D8824B3EDA /* Annie */,
-				EC073B7941DE75990078628F /* announcer */,
-				57C7A05DBC69F1CCA14861B0 /* antonio */,
-				A3F3D63D95E7093CC4449EC0 /* AnxiousAndy */,
-				6E88C241FD9109A934FD4746 /* aunty */,
-				DD6A03D021577A12C76E5006 /* belinda */,
-				395F4FBB21B1B890DE6856F9 /* benjamin */,
-				8FF11ABEEA6DD863D14B4931 /* boris */,
-				7FCC835E6F617A5F2EDDC7D8 /* caleb */,
-				55B2735622FC1D2F3053B592 /* croak */,
-				F715661161A6CC9C67874A08 /* david */,
-				3AD0AEE554C3B1C4084577CD /* Demonic */,
-				19714426113FCFF6A57D1066 /* Denis */,
-				F08EDE05A54E5DB7ADF07BD8 /* Diogo */,
-				5EEFA25CE9579C2B574C5077 /* ed */,
-				AAC4423107343756DFDB411F /* edward */,
-				90D815786C045A35B348E43E /* edward2 */,
-				0FDB8A86D1942C59B62C2578 /* f1 */,
-				1643206483854593783EB0FB /* f2 */,
-				6C733A5C3A6DD611059C528B /* f3 */,
-				DC71999B4EFF82D0992E0E7E /* f4 */,
-				54C59CB355A4A41C42BC1B44 /* f5 */,
-				49803F4C2F31DA34432F56F6 /* fast */,
-				966310407D60873BAA84A266 /* Gene */,
-				6E8AC8D421D8353EDB23A786 /* Gene2 */,
-				E0907960D689FD276BB6099A /* grandma */,
-				3BBD20BE902CBCED20AC5959 /* grandpa */,
-				13F961F9306250012A4A2C9C /* gustave */,
-				4E07E58FA99E06777CCF096B /* Henrique */,
-				9C7D118A1CC9F37B06244DBE /* Hugo */,
-				6405F9543A4D23ECB0580764 /* ian */,
-				D97054C0485515D18C2D6381 /* iven */,
-				579A7564BED9A2E13D007D2D /* iven2 */,
-				DFBA53DF483FE04E16D9577D /* iven3 */,
-				8A8F945561FBA854710A08D7 /* iven4 */,
-				E3020D9BFE4EC4F2E0A71FF6 /* Jacky */,
-				105FAAFBC193F391E1681164 /* john */,
-				B2D7B972E0688FEC4CDA21F3 /* kaukovalta */,
-				8C020058B600B8CF22010487 /* klatt */,
-				90BAA5E6D237CEDBC4D64F05 /* klatt2 */,
-				AFE66D9B18DAC6ABB849E243 /* klatt3 */,
-				892C92F7E6BB88B679EC36A2 /* klatt4 */,
-				B2523A53D424FD43814D6E48 /* klatt5 */,
-				7642047EFBEFC62F05E39380 /* klatt6 */,
-				360F10215EBF5CA5B356608C /* Lee */,
-				184B690F9D4BBEF896C97031 /* linda */,
-				94CAA56446E8E00E2E2D7072 /* m1 */,
-				1215001E975172DD404AF9E3 /* m2 */,
-				B06D0F28258FC5D39D593BD5 /* m3 */,
-				27B4DC52E8D7B888522DC8A6 /* m4 */,
-				A7DC8F7077DE3610CC0A7F23 /* m5 */,
-				88961BE980010F39C14105DD /* m6 */,
-				1BEA472C42E29DA4578A4498 /* m7 */,
-				CC0E5C70807351581F421127 /* m8 */,
-				312DD317232A92D0653CB9C4 /* marcelo */,
-				3CAA34AF33318C2CAF8585C8 /* Marco */,
-				C17327448AB33267B5205DE5 /* Mario */,
-				FAAEFFA049E18B7C7CBFD8BB /* max */,
-				20971F491E5B2702CB7FBDD4 /* Michael */,
-				1E1DD50F93577E4B36C85A84 /* michel */,
-				3CB5D898AC0E1469CBF9A188 /* miguel */,
-				B45542302EAD660FC888B240 /* Mike */,
-				C30F4E63F999ED706EDD3EC4 /* mike2 */,
-				33E33FD6327B59A8FAE7038C /* Mr serious */,
-				1A2D6581FC84CEB1407926CF /* Nguyen */,
-				6DAE74E4BD29D792FA126E78 /* norbert */,
-				6D6EF9C7BFD218E36628A8F5 /* pablo */,
-				250A322FF44678DB18EA5ECB /* paul */,
-				33FF132B907FE5F2F9211116 /* pedro */,
-				95A61CF43959BB4C1ADAAF74 /* quincy */,
-				1BF5FBDE2A05407703C30B93 /* Reed */,
-				1F860D0AFA7961DB1C815240 /* RicishayMax */,
-				7C949EC107D5910682BBF2CE /* RicishayMax2 */,
-				E84DB8E7A462A94AD9FD0BE7 /* RicishayMax3 */,
-				E42246FF495CCED2AACD0471 /* rob */,
-				E4FE93565026AD7349D535CB /* robert */,
-				FC1CD5330971441D4B25112D /* robosoft */,
-				90D17BDAAF3436BAB4899A03 /* robosoft2 */,
-				30C1A2C65208F043C1FE3C59 /* robosoft3 */,
-				8B0D71C557436819670FDF93 /* robosoft4 */,
-				6007C30F900EDA4F0B255400 /* robosoft5 */,
-				CE2F600DCE1DE9195123E673 /* robosoft6 */,
-				5EB0439D4F5DDBAC3860688D /* robosoft7 */,
-				82245333148358C2B4C7F77D /* robosoft8 */,
-				F1CED3E3825845FE04958050 /* sandro */,
-				5C611B32AB9C68706AC11B67 /* shelby */,
-				5FAC40AC0E9EFFFD8CD88F51 /* steph */,
-				5BBA6D939FB3E148A254BE32 /* steph2 */,
-				B7D5A4106B60A89C53F3F5AA /* steph3 */,
-				FBB5D15F4CED5320CCF559FE /* Storm */,
-				240815AF4BBCD97A439CA0A3 /* travis */,
-				94DF0ACC24AAF7297737F19E /* Tweaky */,
-				C56C1C4777B78214C5B04DA0 /* UniRobot */,
-				2E4FC0C70ED9EB25443CD16F /* victor */,
-				09671435E126B2034265CEA2 /* whisper */,
-				0950BA3B72E152927BCF2A56 /* whisperf */,
-				ADE199B54E56E9AFBFA5E8E9 /* zac */,
-			);
-			path = "!v";
-			sourceTree = "<group>";
-		};
-		E1FABC69DBD39074223A78C7 /* azc */ = {
-			isa = PBXGroup;
-			children = (
-				D5F0B7D0EF02A556A7753C1B /* nci */,
-			);
-			path = azc;
 			sourceTree = "<group>";
 		};
 		EB153AB7EB4158334BC27DD0 /* BookReader */ = {
@@ -1415,23 +429,6 @@
 				BAA435F4DDEE7854E1198848 /* BookStorageService.swift */,
 			);
 			path = Storage;
-			sourceTree = "<group>";
-		};
-		F41D190ABB9C174E0DE40C91 /* grk */ = {
-			isa = PBXGroup;
-			children = (
-				83F675E4455D8377FD9E851D /* el */,
-				BE9817886DD10E3C865FC11C /* grc */,
-			);
-			path = grk;
-			sourceTree = "<group>";
-		};
-		F9AE7C677F8DB9C834DDB522 /* voices */ = {
-			isa = PBXGroup;
-			children = (
-				E1E478A2AD382101F07A4E59 /* !v */,
-			);
-			path = voices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1549,6 +546,7 @@
 				925196639C06341BFFEB9AD8 /* Assets.xcassets in Resources */,
 				B531A00CDD6F81332E75C3EC /* README.md in Resources */,
 				073BF7D2E72027E150E07C2C /* date-zh.fst in Resources */,
+				B5FCDEA5ED11C0ACD996D659 /* espeak-ng-data in Resources */,
 				D5C5A46B950549D72FB1CDAC /* hmm_model.utf8 in Resources */,
 				6074D8CEBC0C16B18298C47E /* idf.dict.utf8 in Resources */,
 				F8270643E08FDB938B9AC6D5 /* jieba.dict.utf8 in Resources */,

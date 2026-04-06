@@ -23,6 +23,11 @@ targets:
     platform: iOS
     sources:
       - path: BookReader
+        excludes:
+          - "Resources/tts-models/espeak-ng-data/**"
+      - path: BookReader/Resources/tts-models/espeak-ng-data
+        type: folder
+        buildPhase: resources
     settings:
       base:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
