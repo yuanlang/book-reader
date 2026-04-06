@@ -147,7 +147,7 @@ final class SherpaOnnxBridge {
         var genConfig = SherpaOnnxGenerationConfig()
         memset(&genConfig, 0, MemoryLayout<SherpaOnnxGenerationConfig>.size)
         genConfig.speed = speed
-        genConfig.sid = 0
+        genConfig.sid = 3  // zf_001: 第一个中文女声 (0=af_maple英文, 1=af_sol英文, 2=bf_vale英文)
         genConfig.silence_scale = 0.2
 
         diag("genConfig size: \(MemoryLayout<SherpaOnnxGenerationConfig>.size), speed=\(genConfig.speed), sid=\(genConfig.sid)")
