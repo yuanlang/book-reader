@@ -96,7 +96,8 @@ struct LibraryView: View {
         for url in contents where url.pathExtension == "epub" {
             let fileName = url.lastPathComponent
             if !registeredPaths.contains(fileName) {
-                await viewModel.importBook(from: url, context: context)
+                // File is already in Books directory, just register it without copying
+                await viewModel.registerBook(at: url, fileName: fileName, context: context)
             }
         }
     }

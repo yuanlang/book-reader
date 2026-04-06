@@ -48,6 +48,23 @@ final class LibraryViewModel {
         }
     }
 
+    /// Register a book that's already in the Books directory (skip file copy).
+    func registerBook(at url: URL, fileName: String, context: ModelContext) async {
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+
+        let (title, author) = await parseMetadata(at: url)
+
+        let book = Book(
+            title: title,
+            author: author,
+            filePath: fileName
+        )
+        context.insert(book)
+        try? context.save()
+    }
+
     func deleteBook(_ book: Book, context: ModelContext) {
         do {
             Task {
