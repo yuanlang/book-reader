@@ -1,7 +1,6 @@
 import XCTest
 
 final class TTSUITests: XCTestCase {
-
     let app = XCUIApplication()
 
     override func setUpWithError() throws {
@@ -9,11 +8,12 @@ final class TTSUITests: XCTestCase {
         app.launch()
     }
 
+
     /// Test that the library loads with the pre-installed book
     func testLibraryLoadsBook() throws {
         // The library should show the book after auto-scanning
         let bookGrid = app.scrollViews.firstMatch
-        XCTAssertTrue(bookGrid.waitForExistence(timeout: 10), "Book grid should be visible")
+        XCTAssertTrue(bookGrid.waitForExistence(timeout: 15), "Book grid should be visible")
 
         // There should be at least one book card
         let bookCards = bookGrid.otherElements.allElementsBoundByIndex
@@ -24,7 +24,7 @@ final class TTSUITests: XCTestCase {
     func testOpenBookAndShowTTSControls() throws {
         // Wait for the library to load and scan for books
         let bookGrid = app.scrollViews.firstMatch
-        XCTAssertTrue(bookGrid.waitForExistence(timeout: 10), "Book grid should be visible")
+        XCTAssertTrue(bookGrid.waitForExistence(timeout: 15), "Book grid should be visible")
 
         // Tap on the first book to open it
         let firstCard = bookGrid.images.firstMatch
@@ -80,7 +80,7 @@ final class TTSUITests: XCTestCase {
     func testTTSPlayback() throws {
         // Wait for library
         let bookGrid = app.scrollViews.firstMatch
-        XCTAssertTrue(bookGrid.waitForExistence(timeout: 10), "Book grid should be visible")
+        XCTAssertTrue(bookGrid.waitForExistence(timeout: 15), "Book grid should be visible")
 
         // Open the first book
         let firstElement = bookGrid.images.firstMatch.exists

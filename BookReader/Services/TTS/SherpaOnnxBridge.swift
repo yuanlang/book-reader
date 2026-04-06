@@ -104,6 +104,11 @@ final class SherpaOnnxBridge {
             config.model.kokoro.lexicon = lexiconNS.utf8String
         }
 
+        // Kokoro v1.1-zh is a multi-lang model (version >= 2), must set lang
+        let langNS = "zh" as NSString
+        config.model.kokoro.lang = langNS.utf8String
+        diag("Kokoro lang: zh")
+
         // Set date/number/phone FSTs for Chinese text normalization
         var ruleFsts: [String] = []
         for name in ["date-zh.fst", "number-zh.fst", "phone-zh.fst"] {
@@ -143,26 +148,20 @@ final class SherpaOnnxBridge {
             return nil
         }
 
-        diag("Calling SherpaOnnxOfflineTtsGenerateWithConfig...")
+        diag("Calling SherpaOnnxOfflineTtsGenerateWithConfig (sid=3, speed=\(speed), lang=zh)...")
+
         var genConfig = SherpaOnnxGenerationConfig()
         memset(&genConfig, 0, MemoryLayout<SherpaOnnxGenerationConfig>.size)
-        genConfig.speed = speed
-        genConfig.sid = 3  // zf_001: 第一个中文女声 (0=af_maple英文, 1=af_sol英文, 2=bf_vale英文)
         genConfig.silence_scale = 0.2
+        genConfig.speed = speed
+        genConfig.sid = 3
 
-        diag("genConfig size: \(MemoryLayout<SherpaOnnxGenerationConfig>.size), speed=\(genConfig.speed), sid=\(genConfig.sid)")
+        // Pass lang via extra JSON for multi-lang Kokoro models
+        let extraStr = "{\"lang\":\"zh\"}" as NSString
+        genConfig.extra = extraStr.utf8String
 
         guard let audio = SherpaOnnxOfflineTtsGenerateWithConfig(tts, text, &genConfig, nil, nil) else {
-            diag("ERROR: SherpaOnnxOfflineTtsGenerateWithConfig returned nil for Chinese text")
-            // Try English text as fallback test
-            diag("Trying English text as test...")
-            let testText = "Hello world."
-            guard let testAudio = SherpaOnnxOfflineTtsGenerateWithConfig(tts, testText, &genConfig, nil, nil) else {
-                diag("ERROR: English text also returned nil!")
-                return nil
-            }
-            diag("English text works! n=\(testAudio.pointee.n), sr=\(testAudio.pointee.sample_rate)")
-            SherpaOnnxDestroyOfflineTtsGeneratedAudio(testAudio)
+            diag("ERROR: SherpaOnnxOfflineTtsGenerateWithConfig returned nil")
             return nil
         }
         defer { SherpaOnnxDestroyOfflineTtsGeneratedAudio(audio) }
