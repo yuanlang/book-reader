@@ -14,8 +14,22 @@ final class JiebaSegmenter {
         "\n"
     ]
 
+    /// Pause punctuation for natural rhythm — split at these for TTS phrasing.
+    private static let pausePunctuation: Set<Character> = [
+        "\u{FF0C}",  // ，(fullwidth comma)
+        "\u{3001}",  // 、(enumeration comma)
+        "\u{FF1A}",  // ：(fullwidth colon)
+        "\u{2014}",  // —(em dash)
+        "\u{2026}",  // …(ellipsis)
+        ","          // ASCII comma
+    ]
+
     /// Maximum characters per sentence for TTS segmentation.
-    private static let maxSentenceLength = 80
+    /// Shorter segments allow Kokoro to produce better prosody.
+    private static let maxSentenceLength = 50
+
+    /// Hard limit — never exceed this many characters in one segment.
+    private static let hardLimitLength = 80
 
     /// Initialize Jieba with bundled dictionaries.
     func initialize() -> Bool {
@@ -33,7 +47,7 @@ final class JiebaSegmenter {
     }
 
     /// Split text into sentences suitable for TTS reading.
-    /// Uses Jieba segmentation + punctuation heuristics.
+    /// Uses Jieba segmentation + punctuation heuristics with natural phrasing.
     /// - Parameter text: The text to split.
     /// - Returns: Array of sentence strings.
     func sentenceSplit(_ text: String) -> [String] {
@@ -44,8 +58,19 @@ final class JiebaSegmenter {
         for word in words {
             current += word
 
-            let shouldSplit = hasSentenceEndPunctuation(word) ||
-                              current.count >= Self.maxSentenceLength
+            let shouldSplit: Bool
+            if hasSentenceEndPunctuation(word) {
+                // Always split at sentence-ending punctuation
+                shouldSplit = true
+            } else if current.count >= Self.hardLimitLength {
+                // Hard limit — must split to avoid overly long segments
+                shouldSplit = true
+            } else if current.count >= Self.maxSentenceLength && hasPausePunctuation(word) {
+                // Split at comma/pause punctuation if segment is already long enough
+                shouldSplit = true
+            } else {
+                shouldSplit = false
+            }
 
             if shouldSplit {
                 let trimmed = current.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -67,5 +92,9 @@ final class JiebaSegmenter {
 
     private func hasSentenceEndPunctuation(_ word: String) -> Bool {
         word.contains { Self.sentenceEndPunctuation.contains($0) }
+    }
+
+    private func hasPausePunctuation(_ word: String) -> Bool {
+        word.contains { Self.pausePunctuation.contains($0) }
     }
 }

@@ -23,6 +23,7 @@
 		5CF717103D4EA0B5A231F227 /* ReadiumNavigator in Frameworks */ = {isa = PBXBuildFile; productRef = 549550EC251540AEB5055A82 /* ReadiumNavigator */; };
 		6074D8CEBC0C16B18298C47E /* idf.dict.utf8 in Resources */ = {isa = PBXBuildFile; fileRef = CE2F1E2998B8B9FA5A833BA5 /* idf.dict.utf8 */; };
 		61F8D5DB1CE2B25D3631C22C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923E14EB181B453B63C75B39 /* ContentView.swift */; };
+		646D72C94F1D915991E671C2 /* SherpaOnnxTTSEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA42F9925EE6B96FA8CA95B /* SherpaOnnxTTSEngineTests.swift */; };
 		6633AE1D7E0568A94069CD52 /* SherpaOnnxBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE0288C0F43AFAAA9B3274F /* SherpaOnnxBridge.swift */; };
 		673091D086C6EBEAD01DBE9C /* tokens.txt in Resources */ = {isa = PBXBuildFile; fileRef = 948D044AF6DCD93D3E932F10 /* tokens.txt */; };
 		681C1A1D886F1EB410AF1AB1 /* sherpa-onnx.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF235534BECAFF1388EF4DDB /* sherpa-onnx.xcframework */; };
@@ -100,6 +101,7 @@
 		1833BFC5241B174F9170504D /* DictTrie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DictTrie.hpp; sourceTree = "<group>"; };
 		1C35EF431DD3C3C22B8F191A /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		1E622027BB354CC0ED809994 /* BookReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BookReader-Bridging-Header.h"; sourceTree = "<group>"; };
+		1EA42F9925EE6B96FA8CA95B /* SherpaOnnxTTSEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaOnnxTTSEngineTests.swift; sourceTree = "<group>"; };
 		21E6709BE2EB6FB6A934F45B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		222D006D759DF7653D1D37F2 /* BookReaderUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BookReaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22EF089B7548D52A2C60A5AE /* Jieba.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Jieba.hpp; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				4D1B579D210B6DD151122170 /* JiebaSegmenterTests.swift */,
+				1EA42F9925EE6B96FA8CA95B /* SherpaOnnxTTSEngineTests.swift */,
 			);
 			path = BookReaderTests;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F891F3FE66B82387E501EDF /* JiebaSegmenterTests.swift in Sources */,
+				646D72C94F1D915991E671C2 /* SherpaOnnxTTSEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

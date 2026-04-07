@@ -68,7 +68,8 @@ final class SherpaOnnxBridge {
         config.model.kokoro.model = modelNS.utf8String
         config.model.kokoro.voices = voicesNS.utf8String
         config.model.kokoro.tokens = tokensNS.utf8String
-        config.model.kokoro.length_scale = 1.0
+        // length_scale > 1.0 for slightly slower, more natural reading pace
+        config.model.kokoro.length_scale = 1.1
 
         if fm.fileExists(atPath: dataDirPath) {
             config.model.kokoro.data_dir = dataDirNS.utf8String
@@ -87,7 +88,7 @@ final class SherpaOnnxBridge {
 
         config.model.num_threads = 2
         config.model.debug = 0
-        config.max_num_sentences = 1
+        config.max_num_sentences = 2
 
         guard let ttsEngine = SherpaOnnxCreateOfflineTts(&config) else {
             ttsLog.error("Failed to create sherpa-onnx TTS engine")
@@ -103,17 +104,23 @@ final class SherpaOnnxBridge {
     }
 
     /// Synthesize text to audio samples using Kokoro TTS.
-    func synthesize(_ text: String, speed: Float = 1.0) -> (samples: [Float], sampleRate: Int32)? {
+    /// - Parameters:
+    ///   - text: Text to synthesize
+    ///   - speed: Speech speed multiplier (1.0 = normal)
+    ///   - lang: Language code for synthesis ("zh" or "en")
+    func synthesize(_ text: String, speed: Float = 1.0, lang: String = "zh") -> (samples: [Float], sampleRate: Int32)? {
         guard isInitialized, let tts = tts, !text.isEmpty else { return nil }
 
         var genConfig = SherpaOnnxGenerationConfig()
         memset(&genConfig, 0, MemoryLayout<SherpaOnnxGenerationConfig>.size)
-        genConfig.silence_scale = 0.2
+        // silence_scale: 0.38 for natural pauses — not too short (robotic) nor too long (dragging)
+        genConfig.silence_scale = 0.38
         genConfig.speed = speed
+        // Speaker ID 3 = a natural-sounding Chinese female voice from Kokoro v1.1-zh
         genConfig.sid = 3
 
         // Pass lang via extra JSON for multi-lang Kokoro models
-        let extraStr = "{\"lang\":\"zh\"}" as NSString
+        let extraStr = "{\"lang\":\"\(lang)\"}" as NSString
         genConfig.extra = extraStr.utf8String
 
         guard let audio = SherpaOnnxOfflineTtsGenerateWithConfig(tts, text, &genConfig, nil, nil) else {

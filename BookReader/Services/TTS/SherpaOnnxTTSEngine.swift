@@ -65,13 +65,9 @@ final class SherpaOnnxTTSEngine: TTSEngine {
 
         NSLog("[TTSEngine] speak() called for text: \(text.prefix(50))")
 
-        // Check if text contains Chinese characters
-        if containsChinese(text) {
-            return await speakChinese(text)
-        } else {
-            NSLog("[TTSEngine] Non-Chinese text detected, using system TTS")
-            return await speakWithSystemTTS(text, languageCode: utterance.language.code.bcp47)
-        }
+        // Kokoro v1.1-zh supports both Chinese and English — use it for both
+        let lang = containsChinese(text) ? "zh" : "en"
+        return await speakWithKokoro(text, lang: lang)
     }
 
     // MARK: - Private Methods
@@ -82,11 +78,11 @@ final class SherpaOnnxTTSEngine: TTSEngine {
         return chineseRange != nil
     }
 
-    private func speakChinese(_ text: String) async -> Result<Void, TTSError> {
-        NSLog("[TTSEngine] Chinese text, using Kokoro TTS. isModelReady: \(isModelReady)")
+    private func speakWithKokoro(_ text: String, lang: String) async -> Result<Void, TTSError> {
+        NSLog("[TTSEngine] Using Kokoro TTS (lang=\(lang)). isModelReady: \(isModelReady)")
 
-        if isModelReady, let result = bridge.synthesize(text, speed: 1.0) {
-            NSLog("[TTSEngine] Synthesis successful, playing audio...")
+        if isModelReady, let result = bridge.synthesize(text, speed: 1.0, lang: lang) {
+            NSLog("[TTSEngine] Synthesis successful, \(result.samples.count) samples, playing audio...")
             let pcmData = floatSamplesToPCM16(result.samples)
             await audioPlayer.playAndWait(pcmData: pcmData, sampleRate: Int(result.sampleRate))
             return .success(())
@@ -99,7 +95,8 @@ final class SherpaOnnxTTSEngine: TTSEngine {
 
         // Fallback to system TTS if Kokoro TTS fails
         NSLog("[TTSEngine] Kokoro TTS failed, falling back to system TTS")
-        return await speakWithSystemTTS(text, languageCode: "zh-CN")
+        let langCode = lang == "zh" ? "zh-CN" : "en-US"
+        return await speakWithSystemTTS(text, languageCode: langCode)
     }
 
     private func speakWithSystemTTS(_ text: String, languageCode: String?) async -> Result<Void, TTSError> {
