@@ -16,33 +16,15 @@ final class SherpaOnnxBridge {
         }
     }
 
-    /// Write diagnostic info to a temp file for debugging
-    private func diag(_ msg: String) {
-        ttsLog.info("\(msg)")
-        let dir = NSTemporaryDirectory()
-        let path = (dir as NSString).appendingPathComponent("tts_diag.txt")
-        let data = (msg + "\n").data(using: .utf8) ?? Data()
-        if FileManager.default.fileExists(atPath: path) {
-            if let handle = FileHandle(forWritingAtPath: path) {
-                handle.seekToEndOfFile()
-                handle.write(data)
-                handle.closeFile()
-            }
-        } else {
-            try? data.write(to: URL(fileURLWithPath: path))
-        }
-    }
-
     /// Initialize the TTS model from bundled model files.
     func initialize() -> Bool {
         let version = String(cString: SherpaOnnxGetVersionStr())
-        diag("=== TTS Bridge initialize() START === sherpa-onnx version: \(version)")
+        ttsLog.info("TTS Bridge init START, sherpa-onnx \(version)")
+
         guard let resourcePath = Bundle.main.resourcePath else {
-            diag("ERROR: No resource path found")
+            ttsLog.error("No resource path found")
             return false
         }
-
-        diag("Resource path: \(resourcePath)")
 
         // Files may be at bundle root or in tts-models subdirectory
         let ttsModelDir: String
@@ -50,10 +32,8 @@ final class SherpaOnnxBridge {
         let subDir = (resourcePath as NSString).appendingPathComponent("tts-models")
         if fm.fileExists(atPath: (subDir as NSString).appendingPathComponent("tokens.txt")) {
             ttsModelDir = subDir
-            diag("Using tts-models subdirectory: \(ttsModelDir)")
         } else {
             ttsModelDir = resourcePath
-            diag("Using resource root: \(ttsModelDir)")
         }
 
         let modelPath = (ttsModelDir as NSString).appendingPathComponent("model.onnx")
@@ -61,15 +41,10 @@ final class SherpaOnnxBridge {
         let voicesPath = (ttsModelDir as NSString).appendingPathComponent("voices.bin")
         let dataDirPath = (ttsModelDir as NSString).appendingPathComponent("espeak-ng-data")
 
-        diag("Model path: \(modelPath) exists=\(fm.fileExists(atPath: modelPath))")
-        diag("Tokens path: \(tokensPath) exists=\(fm.fileExists(atPath: tokensPath))")
-        diag("Voices path: \(voicesPath) exists=\(fm.fileExists(atPath: voicesPath))")
-        diag("Data dir: \(dataDirPath) exists=\(fm.fileExists(atPath: dataDirPath))")
-
         guard fm.fileExists(atPath: modelPath),
               fm.fileExists(atPath: tokensPath),
               fm.fileExists(atPath: voicesPath) else {
-            diag("ERROR: TTS model files not found at: \(ttsModelDir)")
+            ttsLog.error("TTS model files not found at: \(ttsModelDir)")
             return false
         }
 
@@ -86,12 +61,10 @@ final class SherpaOnnxBridge {
             if fm.fileExists(atPath: path) { lexiconPaths.append(path) }
         }
         let lexiconNS = lexiconPaths.joined(separator: ",") as NSString
-        diag("Lexicon paths: \(lexiconNS as String)")
 
         var config = SherpaOnnxOfflineTtsConfig()
         memset(&config, 0, MemoryLayout<SherpaOnnxOfflineTtsConfig>.size)
 
-        // Use Kokoro model config instead of VITS
         config.model.kokoro.model = modelNS.utf8String
         config.model.kokoro.voices = voicesNS.utf8String
         config.model.kokoro.tokens = tokensNS.utf8String
@@ -104,30 +77,20 @@ final class SherpaOnnxBridge {
             config.model.kokoro.lexicon = lexiconNS.utf8String
         }
 
-        // Kokoro v1.1-zh is a multi-lang model (version >= 2), must set lang
+        // Kokoro v1.1-zh is a multi-lang model, must set lang
         let langNS = "zh" as NSString
         config.model.kokoro.lang = langNS.utf8String
-        diag("Kokoro lang: zh")
 
-        // Set date/number/phone FSTs for Chinese text normalization
-        var ruleFsts: [String] = []
-        for name in ["date-zh.fst", "number-zh.fst", "phone-zh.fst"] {
-            let path = (ttsModelDir as NSString).appendingPathComponent(name)
-            if fm.fileExists(atPath: path) { ruleFsts.append(path) }
-        }
-        let ruleFstsNS = ruleFsts.joined(separator: ",") as NSString
-        if ruleFstsNS.length > 0 {
-            config.rule_fsts = ruleFstsNS.utf8String
-        }
-        diag("Rule FSTs: \(ruleFstsNS as String)")
+        // NOTE: NOT setting rule_fsts — the date-zh/number-zh/phone-zh FSTs
+        // strip all Chinese text during sherpa-onnx normalization, causing
+        // synthesis to always return nil.
 
         config.model.num_threads = 2
-        config.model.debug = 1
+        config.model.debug = 0
         config.max_num_sentences = 1
 
-        diag("Creating SherpaOnnx TTS engine (Kokoro model)...")
         guard let ttsEngine = SherpaOnnxCreateOfflineTts(&config) else {
-            diag("ERROR: Failed to create sherpa-onnx TTS engine")
+            ttsLog.error("Failed to create sherpa-onnx TTS engine")
             return false
         }
 
@@ -135,20 +98,13 @@ final class SherpaOnnxBridge {
         self.sampleRate = SherpaOnnxOfflineTtsSampleRate(ttsEngine)
         self.isInitialized = true
         let numSpeakers = SherpaOnnxOfflineTtsNumSpeakers(ttsEngine)
-        diag("SUCCESS: SherpaOnnx TTS initialized. Sample rate: \(self.sampleRate), numSpeakers: \(numSpeakers)")
+        ttsLog.info("TTS ready: \(self.sampleRate)Hz, \(numSpeakers) speakers")
         return true
     }
 
-    /// Synthesize text to audio samples.
+    /// Synthesize text to audio samples using Kokoro TTS.
     func synthesize(_ text: String, speed: Float = 1.0) -> (samples: [Float], sampleRate: Int32)? {
-        diag("synthesize called for: '\(text.prefix(50))' (length: \(text.count))")
-
-        guard isInitialized, let tts = tts, !text.isEmpty else {
-            diag("ERROR: Early return: isInitialized=\(self.isInitialized), tts=\(self.tts != nil), textEmpty=\(text.isEmpty)")
-            return nil
-        }
-
-        diag("Calling SherpaOnnxOfflineTtsGenerateWithConfig (sid=3, speed=\(speed), lang=zh)...")
+        guard isInitialized, let tts = tts, !text.isEmpty else { return nil }
 
         var genConfig = SherpaOnnxGenerationConfig()
         memset(&genConfig, 0, MemoryLayout<SherpaOnnxGenerationConfig>.size)
@@ -161,22 +117,17 @@ final class SherpaOnnxBridge {
         genConfig.extra = extraStr.utf8String
 
         guard let audio = SherpaOnnxOfflineTtsGenerateWithConfig(tts, text, &genConfig, nil, nil) else {
-            diag("ERROR: SherpaOnnxOfflineTtsGenerateWithConfig returned nil")
+            ttsLog.error("TTS synthesis returned nil for: \(text.prefix(30))")
             return nil
         }
         defer { SherpaOnnxDestroyOfflineTtsGeneratedAudio(audio) }
 
         let audioStruct = audio.pointee
         let numSamples = Int(audioStruct.n)
-        diag("Generated \(numSamples) samples at rate \(audioStruct.sample_rate)")
-
-        guard numSamples > 0, let samplesPtr = audioStruct.samples else {
-            diag("ERROR: No samples generated")
-            return nil
-        }
+        guard numSamples > 0, let samplesPtr = audioStruct.samples else { return nil }
 
         let samples = Array(UnsafeBufferPointer(start: samplesPtr, count: numSamples))
-        diag("Successfully created samples array (\(samples.count) floats)")
+        ttsLog.info("Generated \(numSamples) samples")
         return (samples, audioStruct.sample_rate)
     }
 }
