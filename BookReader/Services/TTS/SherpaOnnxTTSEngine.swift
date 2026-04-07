@@ -19,6 +19,9 @@ final class SherpaOnnxTTSEngine: TTSEngine {
         return _isModelReady
     }
 
+    /// Current playback speed, controlled by the UI.
+    var playbackSpeed: Float = 1.0
+
     init() {
         NSLog("[TTSEngine] Initializing SherpaOnnxTTSEngine...")
         // Initialize synchronously to ensure model is ready before any speak() calls
@@ -45,9 +48,16 @@ final class SherpaOnnxTTSEngine: TTSEngine {
     var availableVoices: [TTSVoice] {
         [
             TTSVoice(
-                identifier: "kokoro-zh-female",
+                identifier: "kokoro-zh-yunyang",
                 language: Language(code: .bcp47("zh-CN")),
-                name: "中文女声 (Kokoro)",
+                name: "云阳 (Kokoro 中文男声)",
+                gender: .male,
+                quality: .high
+            ),
+            TTSVoice(
+                identifier: "kokoro-en-bella",
+                language: Language(code: .bcp47("en-US")),
+                name: "Bella (Kokoro English)",
                 gender: .female,
                 quality: .high
             )
@@ -79,9 +89,9 @@ final class SherpaOnnxTTSEngine: TTSEngine {
     }
 
     private func speakWithKokoro(_ text: String, lang: String) async -> Result<Void, TTSError> {
-        NSLog("[TTSEngine] Using Kokoro TTS (lang=\(lang)). isModelReady: \(isModelReady)")
+        NSLog("[TTSEngine] Using Kokoro TTS (lang=\(lang), speed=\(playbackSpeed)). isModelReady: \(isModelReady)")
 
-        if isModelReady, let result = bridge.synthesize(text, speed: 1.0, lang: lang) {
+        if isModelReady, let result = bridge.synthesize(text, speed: playbackSpeed, lang: lang) {
             NSLog("[TTSEngine] Synthesis successful, \(result.samples.count) samples, playing audio...")
             let pcmData = floatSamplesToPCM16(result.samples)
             await audioPlayer.playAndWait(pcmData: pcmData, sampleRate: Int(result.sampleRate))

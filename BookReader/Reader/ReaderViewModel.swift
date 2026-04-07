@@ -215,6 +215,7 @@ final class ReaderViewModel {
 
     func setSpeed(_ newSpeed: Float) {
         speed = newSpeed
+        ttsEngine?.playbackSpeed = newSpeed
     }
 }
 

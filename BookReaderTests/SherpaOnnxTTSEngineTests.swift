@@ -11,6 +11,7 @@ struct SherpaOnnxTTSEngineTests {
         let success = bridge.initialize()
         #expect(success)
         #expect(bridge.sampleRate == 24000)
+        #expect(bridge.numSpeakers > 0)
     }
 
     @Test("Chinese text synthesis produces audio samples")
@@ -48,8 +49,9 @@ struct SherpaOnnxTTSEngineTests {
 
         // Test via the engine's available voices
         let voices = engine.availableVoices
-        #expect(voices.count > 0)
-        #expect(voices[0].identifier == "kokoro-zh-female")
+        #expect(voices.count == 2)
+        #expect(voices[0].identifier == "kokoro-zh-yunyang")
+        #expect(voices[1].identifier == "kokoro-en-bella")
     }
 
     @Test("Empty text returns nil")
@@ -123,5 +125,110 @@ struct SherpaOnnxTTSEngineTests {
         let buffer = data.toPCMBuffer(format: format!)
         #expect(buffer != nil)
         #expect(buffer!.frameLength == frameCount)
+    }
+
+    @Test("Chinese text with Chinese speaker produces valid audio")
+    func testChineseSpeakerSynthesis() {
+        let bridge = SherpaOnnxBridge()
+        #expect(bridge.initialize())
+
+        let text = "当夜幕降临，星光点点，伴随着微风拂面。"
+        let result = bridge.synthesize(text, speed: 1.0, lang: "zh")
+        #expect(result != nil)
+        #expect(result!.samples.count > 0)
+
+        // Verify the audio has meaningful amplitude (not silence)
+        let maxAmp = result!.samples.map { abs($0) }.max() ?? 0
+        #expect(maxAmp > 0.01, "Audio should have non-trivial amplitude")
+    }
+
+    @Test("English text with English speaker produces valid audio")
+    func testEnglishSpeakerSynthesis() {
+        let bridge = SherpaOnnxBridge()
+        #expect(bridge.initialize())
+
+        let text = "The quick brown fox jumps over the lazy dog."
+        let result = bridge.synthesize(text, speed: 1.0, lang: "en")
+        #expect(result != nil)
+        #expect(result!.samples.count > 0)
+
+        // Verify the audio has meaningful amplitude
+        let maxAmp = result!.samples.map { abs($0) }.max() ?? 0
+        #expect(maxAmp > 0.01, "Audio should have non-trivial amplitude")
+    }
+
+    @Test("Speed control affects audio duration")
+    func testSpeedControl() {
+        let bridge = SherpaOnnxBridge()
+        #expect(bridge.initialize())
+
+        let text = "今天天气不错。"
+
+        let normalResult = bridge.synthesize(text, speed: 1.0, lang: "zh")
+        let fastResult = bridge.synthesize(text, speed: 1.5, lang: "zh")
+
+        #expect(normalResult != nil)
+        #expect(fastResult != nil)
+
+        // Faster speed should produce fewer samples (shorter audio)
+        #expect(fastResult!.samples.count < normalResult!.samples.count,
+               "Faster speed should produce shorter audio")
+    }
+
+    @Test("TTS encode-decode roundtrip: synthesized audio is valid PCM")
+    func testEncodeDecodeRoundtrip() {
+        let bridge = SherpaOnnxBridge()
+        #expect(bridge.initialize())
+
+        // Synthesize Chinese text
+        let text = "春眠不觉晓，处处闻啼鸟。"
+        let result = bridge.synthesize(text, speed: 1.0, lang: "zh")
+        #expect(result != nil)
+
+        // Encode to PCM16
+        let floatSamples = result!.samples
+        var pcmData = Data(count: floatSamples.count * 2)
+        pcmData.withUnsafeMutableBytes { ptr in
+            guard let base = ptr.baseAddress?.assumingMemoryBound(to: Int16.self) else { return }
+            for (i, sample) in floatSamples.enumerated() {
+                let clamped = max(-1.0, min(1.0, sample))
+                base[i] = Int16(clamped * 32767.0)
+            }
+        }
+
+        // Decode back to float
+        var decodedSamples: [Float] = []
+        decodedSamples.reserveCapacity(floatSamples.count)
+        pcmData.withUnsafeBytes { ptr in
+            let base = ptr.baseAddress!.assumingMemoryBound(to: Int16.self)
+            for i in 0..<floatSamples.count {
+                decodedSamples.append(Float(base[i]) / 32767.0)
+            }
+        }
+
+        // Verify roundtrip: decoded should closely match original
+        #expect(decodedSamples.count == floatSamples.count)
+        var maxError: Float = 0
+        for (original, decoded) in zip(floatSamples, decodedSamples) {
+            let error = abs(original - decoded)
+            maxError = max(maxError, error)
+        }
+        // Quantization error should be small (< 1 LSB = 1/32767 ≈ 0.00003)
+        #expect(maxError < 0.00005, "PCM16 roundtrip error should be < 1 LSB, got \(maxError)")
+    }
+
+    @Test("Engine playback speed is configurable")
+    func testEnginePlaybackSpeed() {
+        let engine = SherpaOnnxTTSEngine()
+
+        // Default speed
+        #expect(engine.playbackSpeed == 1.0)
+
+        // Change speed
+        engine.playbackSpeed = 1.5
+        #expect(engine.playbackSpeed == 1.5)
+
+        engine.playbackSpeed = 0.75
+        #expect(engine.playbackSpeed == 0.75)
     }
 }

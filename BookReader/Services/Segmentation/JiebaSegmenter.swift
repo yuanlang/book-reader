@@ -11,6 +11,10 @@ final class JiebaSegmenter {
         "\u{FF01}",  // ！
         "\u{FF1F}",  // ？
         "\u{FF1B}",  // ；
+        ".",         // English period
+        "!",         // English exclamation
+        "?",         // English question mark
+        ";",         // English semicolon
         "\n"
     ]
 
@@ -21,15 +25,17 @@ final class JiebaSegmenter {
         "\u{FF1A}",  // ：(fullwidth colon)
         "\u{2014}",  // —(em dash)
         "\u{2026}",  // …(ellipsis)
-        ","          // ASCII comma
+        ",",         // ASCII comma
+        ":",         // ASCII colon
+        "\u{2013}"   // –(en dash)
     ]
 
     /// Maximum characters per sentence for TTS segmentation.
-    /// Shorter segments allow Kokoro to produce better prosody.
-    private static let maxSentenceLength = 50
+    /// 40 chars gives Kokoro enough context for intonation while keeping prosody natural.
+    private static let maxSentenceLength = 40
 
     /// Hard limit — never exceed this many characters in one segment.
-    private static let hardLimitLength = 80
+    private static let hardLimitLength = 70
 
     /// Initialize Jieba with bundled dictionaries.
     func initialize() -> Bool {

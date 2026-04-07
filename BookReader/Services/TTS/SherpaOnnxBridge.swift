@@ -8,7 +8,16 @@ private let ttsLog = Logger(subsystem: "com.bookreader.app", category: "TTS")
 final class SherpaOnnxBridge {
     private var tts: OpaquePointer?
     private(set) var sampleRate: Int32 = 24000
+    private(set) var numSpeakers: Int32 = 0
     private var isInitialized = false
+
+    /// Speaker IDs for kokoro-multi-lang-v1_0 (53 speakers).
+    /// zm_yunyang (52): Chinese male, proven in official bilingual demos for natural zh+en.
+    /// zf_xiaobei (45): Chinese female, warm tone for narration.
+    /// af_bella (2): American female, regarded as most natural English voice.
+    private static let chineseSpeakerId: Int32 = 52
+    private static let chineseFemaleSpeakerId: Int32 = 45
+    private static let englishSpeakerId: Int32 = 2
 
     deinit {
         if let tts = tts {
@@ -68,8 +77,8 @@ final class SherpaOnnxBridge {
         config.model.kokoro.model = modelNS.utf8String
         config.model.kokoro.voices = voicesNS.utf8String
         config.model.kokoro.tokens = tokensNS.utf8String
-        // length_scale > 1.0 for slightly slower, more natural reading pace
-        config.model.kokoro.length_scale = 1.1
+        // length_scale 1.0 = natural pace; Kokoro's internal rhythm handles prosody
+        config.model.kokoro.length_scale = 1.0
 
         if fm.fileExists(atPath: dataDirPath) {
             config.model.kokoro.data_dir = dataDirNS.utf8String
@@ -97,10 +106,20 @@ final class SherpaOnnxBridge {
 
         self.tts = ttsEngine
         self.sampleRate = SherpaOnnxOfflineTtsSampleRate(ttsEngine)
+        self.numSpeakers = SherpaOnnxOfflineTtsNumSpeakers(ttsEngine)
         self.isInitialized = true
-        let numSpeakers = SherpaOnnxOfflineTtsNumSpeakers(ttsEngine)
-        ttsLog.info("TTS ready: \(self.sampleRate)Hz, \(numSpeakers) speakers")
+        ttsLog.info("TTS ready: \(self.sampleRate)Hz, \(self.numSpeakers) speakers")
         return true
+    }
+
+    /// Select the best speaker ID for the given language.
+    /// Uses Chinese speakers (45-52) for Chinese text and English speakers for English text.
+    private func speakerId(for lang: String) -> Int32 {
+        // For v1.0 model (53 speakers): use zm_yunyang (52) for zh, af_bella (2) for en
+        if lang == "zh" {
+            return Self.chineseSpeakerId
+        }
+        return Self.englishSpeakerId
     }
 
     /// Synthesize text to audio samples using Kokoro TTS.
@@ -111,13 +130,15 @@ final class SherpaOnnxBridge {
     func synthesize(_ text: String, speed: Float = 1.0, lang: String = "zh") -> (samples: [Float], sampleRate: Int32)? {
         guard isInitialized, let tts = tts, !text.isEmpty else { return nil }
 
+        let sid = speakerId(for: lang)
+        ttsLog.info("Synthesizing lang=\(lang), sid=\(sid), speed=\(speed), text=\"\(text.prefix(40))\"")
+
         var genConfig = SherpaOnnxGenerationConfig()
         memset(&genConfig, 0, MemoryLayout<SherpaOnnxGenerationConfig>.size)
-        // silence_scale: 0.38 for natural pauses — not too short (robotic) nor too long (dragging)
-        genConfig.silence_scale = 0.38
+        // silence_scale 0.25: tighter pauses for natural flow (official example uses 0.2)
+        genConfig.silence_scale = 0.25
         genConfig.speed = speed
-        // Speaker ID 3 = a natural-sounding Chinese female voice from Kokoro v1.1-zh
-        genConfig.sid = 3
+        genConfig.sid = sid
 
         // Pass lang via extra JSON for multi-lang Kokoro models
         let extraStr = "{\"lang\":\"\(lang)\"}" as NSString
