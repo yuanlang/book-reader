@@ -3,44 +3,96 @@ import AVFoundation
 import ReadiumNavigator
 import ReadiumShared
 
-/// TTS engine implementing Readium's TTSEngine protocol,
-/// using sherpa-onnx with Kokoro-82M-v1.1-zh for Chinese+English speech synthesis,
-/// and AVSpeechSynthesizer for other languages as fallback.
+/// TTS engine implementing Readium's TTSEngine protocol.
+/// Uses iOS system TTS (AVSpeechSynthesizer) for high-quality Chinese/English speech.
 final class SherpaOnnxTTSEngine: TTSEngine {
 
-    private let bridge = SherpaOnnxBridge()
-    private let audioPlayer = AudioPlayerService()
     private let systemSynthesizer = AVSpeechSynthesizer()
-    private let initLock = NSLock()
-    private var _isModelReady = false
-    private var isModelReady: Bool {
-        initLock.lock()
-        defer { initLock.unlock() }
-        return _isModelReady
-    }
 
     /// Current playback speed, controlled by the UI.
     var playbackSpeed: Float = 1.0
 
+    /// Selected voice identifier (e.g. "Lilian (Premium)", "Flo (中文（中国大陆）)").
+    /// If nil or "default", uses the default voice for the language.
+    var selectedVoiceIdentifier: String? {
+        didSet { saveVoicePreference() }
+    }
+
     init() {
-        NSLog("[TTSEngine] Initializing SherpaOnnxTTSEngine...")
-        // Initialize synchronously to ensure model is ready before any speak() calls
-        initLock.lock()
-        _isModelReady = bridge.initialize()
-        initLock.unlock()
-        if !_isModelReady {
-            NSLog("[TTSEngine] WARNING: TTS model not initialized.")
-        } else {
-            NSLog("[TTSEngine] TTS model ready.")
-        }
+        selectedVoiceIdentifier = UserDefaults.standard.string(forKey: "tts_voice_identifier")
     }
 
     /// Immediately stops any ongoing audio playback.
     func stopSpeaking() {
-        Task {
-            await audioPlayer.stop()
-        }
         systemSynthesizer.stopSpeaking(at: .immediate)
+    }
+
+    // MARK: - Voice Management
+
+    /// A voice option for the picker UI.
+    struct VoiceOption: Identifiable {
+        let id: String          // AVSpeechSynthesisVoice identifier
+        let name: String        // Display name
+        let language: String    // e.g. "zh-CN", "en-US"
+        let isPremium: Bool
+    }
+
+    /// All available Chinese and English voices, grouped by language.
+    static var availableVoiceOptions: (chinese: [VoiceOption], english: [VoiceOption]) {
+        let allVoices = AVSpeechSynthesisVoice.speechVoices()
+        let targetLangs: Set<String> = [
+            "zh-CN", "zh-TW",
+            "en-US", "en-GB", "en-AU", "en-IE", "en-ZA", "en-IN"
+        ]
+
+        let filtered = allVoices.filter { targetLangs.contains($0.language) }
+
+        var chinese: [VoiceOption] = []
+        var english: [VoiceOption] = []
+
+        for voice in filtered {
+            let isPremium = voice.identifier.contains("Premium") || voice.quality == .enhanced
+            let option = VoiceOption(
+                id: voice.identifier,
+                name: voice.name,
+                language: voice.language,
+                isPremium: isPremium
+            )
+            if voice.language.hasPrefix("zh") {
+                chinese.append(option)
+            } else {
+                english.append(option)
+            }
+        }
+
+        // Sort: Premium first, then by name
+        let sort: (VoiceOption, VoiceOption) -> Bool = { a, b in
+            if a.isPremium != b.isPremium { return a.isPremium }
+            return a.name < b.name
+        }
+        chinese.sort(by: sort)
+        english.sort(by: sort)
+
+        return (chinese, english)
+    }
+
+    /// Resolve the AVSpeechSynthesisVoice to use for the given language.
+    private func resolveVoice(for languageCode: String) -> AVSpeechSynthesisVoice? {
+        // If user selected a specific voice, try to use it
+        if let identifier = selectedVoiceIdentifier,
+           let voice = AVSpeechSynthesisVoice(identifier: identifier) {
+            return voice
+        }
+        // Fallback to language default
+        return AVSpeechSynthesisVoice(language: languageCode)
+    }
+
+    private func saveVoicePreference() {
+        if let id = selectedVoiceIdentifier, id != "default" {
+            UserDefaults.standard.set(id, forKey: "tts_voice_identifier")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "tts_voice_identifier")
+        }
     }
 
     // MARK: - TTSEngine Protocol
@@ -48,16 +100,16 @@ final class SherpaOnnxTTSEngine: TTSEngine {
     var availableVoices: [TTSVoice] {
         [
             TTSVoice(
-                identifier: "kokoro-zh-yunyang",
+                identifier: "system-zh",
                 language: Language(code: .bcp47("zh-CN")),
-                name: "云阳 (Kokoro 中文男声)",
+                name: "系统中文语音",
                 gender: .male,
                 quality: .high
             ),
             TTSVoice(
-                identifier: "kokoro-en-bella",
+                identifier: "system-en",
                 language: Language(code: .bcp47("en-US")),
-                name: "Bella (Kokoro English)",
+                name: "System English",
                 gender: .female,
                 quality: .high
             )
@@ -74,75 +126,35 @@ final class SherpaOnnxTTSEngine: TTSEngine {
         }
 
         NSLog("[TTSEngine] speak() called for text: \(text.prefix(50))")
-
-        // Kokoro v1.1-zh supports both Chinese and English — use it for both
-        let lang = containsChinese(text) ? "zh" : "en"
-        return await speakWithKokoro(text, lang: lang)
+        let lang = containsChinese(text) ? "zh-CN" : "en-US"
+        return await speakWithSystemTTS(text, languageCode: lang)
     }
 
     // MARK: - Private Methods
 
     private func containsChinese(_ text: String) -> Bool {
-        // Check if text contains any Chinese characters
-        let chineseRange = text.range(of: "[\u{4E00}-\u{9FFF}]", options: .regularExpression)
-        return chineseRange != nil
+        text.range(of: "[\u{4E00}-\u{9FFF}]", options: .regularExpression) != nil
     }
 
-    private func speakWithKokoro(_ text: String, lang: String) async -> Result<Void, TTSError> {
-        NSLog("[TTSEngine] Using Kokoro TTS (lang=\(lang), speed=\(playbackSpeed)). isModelReady: \(isModelReady)")
-
-        if isModelReady, let result = bridge.synthesize(text, speed: playbackSpeed, lang: lang) {
-            NSLog("[TTSEngine] Synthesis successful, \(result.samples.count) samples, playing audio...")
-            let pcmData = floatSamplesToPCM16(result.samples)
-            await audioPlayer.playAndWait(pcmData: pcmData, sampleRate: Int(result.sampleRate))
-            return .success(())
-        }
-
-        // Check if cancelled during synthesis
-        if Task.isCancelled {
-            return .success(())
-        }
-
-        // Fallback to system TTS if Kokoro TTS fails
-        NSLog("[TTSEngine] Kokoro TTS failed, falling back to system TTS")
-        let langCode = lang == "zh" ? "zh-CN" : "en-US"
-        return await speakWithSystemTTS(text, languageCode: langCode)
-    }
-
-    private func speakWithSystemTTS(_ text: String, languageCode: String?) async -> Result<Void, TTSError> {
+    private func speakWithSystemTTS(_ text: String, languageCode: String) async -> Result<Void, TTSError> {
         return await withCheckedContinuation { continuation in
             let utterance = AVSpeechUtterance(string: text)
+            utterance.voice = resolveVoice(for: languageCode)
 
-            // Set language
-            let lang = languageCode ?? (containsChinese(text) ? "zh-CN" : "en-US")
-            utterance.voice = AVSpeechSynthesisVoice(language: lang)
-            utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+            // Map playback speed (0.5x-2.0x) to AVSpeechUtterance rate
+            let baseRate = AVSpeechUtteranceDefaultSpeechRate
+            utterance.rate = baseRate * playbackSpeed
 
-            NSLog("[TTSEngine] Using system TTS with language: \(lang)")
+            NSLog("[TTSEngine] Using system TTS: voice=\(utterance.voice?.name ?? "default"), rate=\(utterance.rate)")
 
             let delegate = SystemTTSDelegate { result in
                 continuation.resume(returning: result)
             }
 
-            // Store delegate to keep it alive during synthesis
             objc_setAssociatedObject(utterance, "delegate", delegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             systemSynthesizer.delegate = delegate
             systemSynthesizer.speak(utterance)
         }
-    }
-
-    // MARK: - Audio Conversion
-
-    private func floatSamplesToPCM16(_ samples: [Float]) -> Data {
-        var data = Data(count: samples.count * 2)
-        data.withUnsafeMutableBytes { ptr in
-            guard let base = ptr.baseAddress?.assumingMemoryBound(to: Int16.self) else { return }
-            for (i, sample) in samples.enumerated() {
-                let clamped = max(-1.0, min(1.0, sample))
-                base[i] = Int16(clamped * 32767.0)
-            }
-        }
-        return data
     }
 }
 
@@ -156,12 +168,10 @@ private class SystemTTSDelegate: NSObject, AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        NSLog("[TTSEngine] System TTS finished")
         completion(.success(()))
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        NSLog("[TTSEngine] System TTS cancelled")
         completion(.success(()))
     }
 }

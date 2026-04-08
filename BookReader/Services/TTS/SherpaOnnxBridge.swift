@@ -122,6 +122,23 @@ final class SherpaOnnxBridge {
         return Self.englishSpeakerId
     }
 
+    /// Characters known to crash eSpeak-ng phonemizer inside sherpa-onnx.
+    /// These are stripped or replaced before synthesis.
+    private static let problematicChars: [(Character, String)] = [
+        ("·", "，"),   // U+00B7 middle dot — crashes eSpeak phonemize
+        ("•", "，"),   // U+2022 bullet
+        ("\u{2026}", "。"), // … ellipsis
+    ]
+
+    /// Pre-process text to remove/replace characters that crash eSpeak-ng.
+    private func sanitizeText(_ text: String) -> String {
+        var result = text
+        for (char, replacement) in Self.problematicChars {
+            result = result.replacingOccurrences(of: String(char), with: replacement)
+        }
+        return result
+    }
+
     /// Synthesize text to audio samples using Kokoro TTS.
     /// - Parameters:
     ///   - text: Text to synthesize
@@ -130,8 +147,9 @@ final class SherpaOnnxBridge {
     func synthesize(_ text: String, speed: Float = 1.0, lang: String = "zh") -> (samples: [Float], sampleRate: Int32)? {
         guard isInitialized, let tts = tts, !text.isEmpty else { return nil }
 
+        let sanitized = sanitizeText(text)
         let sid = speakerId(for: lang)
-        ttsLog.info("Synthesizing lang=\(lang), sid=\(sid), speed=\(speed), text=\"\(text.prefix(40))\"")
+        ttsLog.info("Synthesizing lang=\(lang), sid=\(sid), speed=\(speed), text=\"\(sanitized.prefix(40))\"")
 
         var genConfig = SherpaOnnxGenerationConfig()
         memset(&genConfig, 0, MemoryLayout<SherpaOnnxGenerationConfig>.size)
@@ -144,8 +162,8 @@ final class SherpaOnnxBridge {
         let extraStr = "{\"lang\":\"\(lang)\"}" as NSString
         genConfig.extra = extraStr.utf8String
 
-        guard let audio = SherpaOnnxOfflineTtsGenerateWithConfig(tts, text, &genConfig, nil, nil) else {
-            ttsLog.error("TTS synthesis returned nil for: \(text.prefix(30))")
+        guard let audio = SherpaOnnxOfflineTtsGenerateWithConfig(tts, sanitized, &genConfig, nil, nil) else {
+            ttsLog.error("TTS synthesis returned nil for: \(sanitized.prefix(30))")
             return nil
         }
         defer { SherpaOnnxDestroyOfflineTtsGeneratedAudio(audio) }

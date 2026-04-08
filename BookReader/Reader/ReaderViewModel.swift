@@ -3,6 +3,7 @@ import SwiftData
 import ReadiumShared
 import ReadiumStreamer
 import ReadiumNavigator
+import UIKit
 
 @Observable
 final class ReaderViewModel {
@@ -11,6 +12,9 @@ final class ReaderViewModel {
     var currentUtteranceText = ""
     var speed: Float = 1.0
     var errorMessage: String?
+
+    /// Table of contents entries for the current publication.
+    var tableOfContents: [TOCItem] = []
 
     // Readium components — ignored from observation
     @ObservationIgnored
@@ -24,13 +28,13 @@ final class ReaderViewModel {
     @ObservationIgnored
     private var navigatorDelegate: NavigatorDelegateHandler?
     @ObservationIgnored
-    private var isTTSNavigating = false  // Flag to ignore TTS-triggered navigation
-    @ObservationIgnored
     private var modelContext: ModelContext?
     @ObservationIgnored
     private var currentBookId: UUID?
     @ObservationIgnored
     private var ttsEngine: SherpaOnnxTTSEngine?
+    @ObservationIgnored
+    private lazy var hapticGenerator = UIImpactFeedbackGenerator(style: .light)
 
     @ObservationIgnored
     private lazy var httpClient = DefaultHTTPClient()
@@ -80,6 +84,7 @@ final class ReaderViewModel {
             self.publication = pub
 
             await MainActor.run {
+                parseTOC(from: pub)
                 setupNavigator(with: pub, initialLocation: savedLocator)
             }
         } catch {
@@ -121,10 +126,12 @@ final class ReaderViewModel {
     }
 
     private func handlePageChange() {
-        // Ignore navigation triggered by TTS itself
-        guard !isTTSNavigating else { return }
-        // When user manually changes page, stop TTS
+        // When TTS is playing, all navigation is TTS-driven — don't stop it.
+        // Only stop TTS when the user manually swipes to a new page.
         guard let synthesizer = ttsSynthesizer else { return }
+        if synthesizer.state == .playing {
+            return
+        }
         if synthesizer.state != .stopped {
             synthesizer.stop()
             isPlaying = false
@@ -180,6 +187,7 @@ final class ReaderViewModel {
         NSLog("[ReaderViewModel] togglePlayback called, synthesizer: \(ttsSynthesizer != nil ? "exists" : "nil")")
         guard let synthesizer = ttsSynthesizer else { return }
         NSLog("[ReaderViewModel] Current state: \(synthesizer.state)")
+        triggerHaptic()
         switch synthesizer.state {
         case .stopped:
             NSLog("[ReaderViewModel] Starting from first visible element...")
@@ -217,6 +225,50 @@ final class ReaderViewModel {
         speed = newSpeed
         ttsEngine?.playbackSpeed = newSpeed
     }
+
+    /// All available voice options grouped by language.
+    var voiceOptions: (chinese: [SherpaOnnxTTSEngine.VoiceOption], english: [SherpaOnnxTTSEngine.VoiceOption]) {
+        SherpaOnnxTTSEngine.availableVoiceOptions
+    }
+
+    /// Currently selected voice identifier.
+    var selectedVoiceId: String? {
+        ttsEngine?.selectedVoiceIdentifier
+    }
+
+    func setVoice(_ identifier: String) {
+        ttsEngine?.selectedVoiceIdentifier = identifier
+    }
+
+    // MARK: - TOC
+
+    /// Navigate to a TOC item.
+    func navigateToTOCItem(_ item: TOCItem) {
+        guard !item.href.isEmpty else { return }
+        guard let url = AnyURL(string: item.href) else { return }
+        let locator = Locator(href: url, mediaType: .html, title: item.title)
+        Task {
+            await navigator?.go(to: locator)
+        }
+    }
+
+    private func parseTOC(from publication: Publication) {
+        Task {
+            let result = await publication.tableOfContents()
+            switch result {
+            case .success(let links):
+                tableOfContents = links.map { TOCItem(from: $0) }
+            case .failure:
+                tableOfContents = []
+            }
+        }
+    }
+
+    // MARK: - Haptics
+
+    private func triggerHaptic() {
+        hapticGenerator.impactOccurred()
+    }
 }
 
 // MARK: - UIViewControllerRepresentable Wrapper
@@ -250,9 +302,7 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
             currentUtteranceText = utterance.text
             // 同步页面到朗读位置
             Task {
-                isTTSNavigating = true
                 await navigator?.go(to: utterance.locator)
-                isTTSNavigating = false
             }
         case .paused(let utterance):
             NSLog("[ReaderViewModel] Paused: \(utterance.text.prefix(50))")
@@ -295,5 +345,20 @@ private class NavigatorDelegateHandler: NSObject, EPUBNavigatorDelegate {
 
     func navigator(_ navigator: Navigator, presentError error: NavigatorError) {
         // Handle errors silently for now
+    }
+}
+
+// MARK: - TOC Item
+
+struct TOCItem: Identifiable {
+    let id = UUID()
+    let title: String
+    let href: String
+    let children: [TOCItem]
+
+    init(from link: ReadiumShared.Link) {
+        self.title = link.title ?? ""
+        self.href = link.href
+        self.children = link.children.map { TOCItem(from: $0) }
     }
 }

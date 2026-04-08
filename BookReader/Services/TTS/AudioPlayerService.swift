@@ -19,18 +19,25 @@ actor AudioPlayerService {
         engine.connect(playerNode, to: engine.mainMixerNode, format: format)
     }
 
-    /// Play PCM data and wait for completion.
-    func playAndWait(pcmData: Data, sampleRate: Int) async {
+    /// Play Float32 samples directly and wait for completion.
+    func playAndWait(samples: [Float], sampleRate: Int) async {
         let format = AVAudioFormat(
-            commonFormat: .pcmFormatInt16,
+            commonFormat: .pcmFormatFloat32,
             sampleRate: Double(sampleRate),
             channels: 1,
             interleaved: false
-        )
+        )!
 
-        guard let pcmFormat = format,
-              let buffer = pcmData.toPCMBuffer(format: pcmFormat) else {
+        let frameCount = AVAudioFrameCount(samples.count)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
             return
+        }
+        buffer.frameLength = frameCount
+
+        // Copy float samples directly into the buffer
+        samples.withUnsafeBufferPointer { src in
+            guard let dst = buffer.floatChannelData?[0] else { return }
+            dst.initialize(from: src.baseAddress!, count: samples.count)
         }
 
         if !engine.isRunning {
@@ -65,22 +72,3 @@ actor AudioPlayerService {
     }
 }
 
-// MARK: - Data to PCM Buffer Conversion
-
-extension Data {
-    func toPCMBuffer(format: AVAudioFormat) -> AVAudioPCMBuffer? {
-        let frameCount = UInt32(count) / 2
-        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
-            return nil
-        }
-        buffer.frameLength = frameCount
-
-        withUnsafeBytes { rawBufferPointer in
-            if let baseAddress = rawBufferPointer.baseAddress {
-                memcpy(buffer.int16ChannelData![0], baseAddress, count)
-            }
-        }
-
-        return buffer
-    }
-}
