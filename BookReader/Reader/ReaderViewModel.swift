@@ -129,14 +129,15 @@ final class ReaderViewModel {
         // When TTS is playing, all navigation is TTS-driven — don't stop it.
         // Only stop TTS when the user manually swipes to a new page.
         guard let synthesizer = ttsSynthesizer else { return }
-        if synthesizer.state == .playing {
+        if case .playing = synthesizer.state {
             return
         }
-        if synthesizer.state != .stopped {
-            synthesizer.stop()
-            isPlaying = false
-            currentUtteranceText = ""
+        if case .stopped = synthesizer.state {
+            return
         }
+        synthesizer.stop()
+        isPlaying = false
+        currentUtteranceText = ""
     }
 
     private func saveProgress(locator: Locator) {
