@@ -58,8 +58,9 @@ struct TTSControlPanel: View {
                 } label: {
                     Text(String(format: "%.1fx", viewModel.speed))
                         .font(.subheadline.monospacedDigit())
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
+                        .frame(minWidth: 50)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 8)
                         .background(.ultraThinMaterial, in: Capsule())
                 }
             }
