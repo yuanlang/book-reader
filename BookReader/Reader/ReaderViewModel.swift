@@ -4,6 +4,7 @@ import ReadiumShared
 import ReadiumStreamer
 import ReadiumNavigator
 import UIKit
+import WebKit
 
 @Observable
 final class ReaderViewModel {
@@ -12,6 +13,7 @@ final class ReaderViewModel {
     var currentUtteranceText = ""
     var speed: Float = 1.0
     var errorMessage: String?
+    var ttsPanelHeight: CGFloat = 0
 
     /// Table of contents entries for the current publication.
     var tableOfContents: [TOCItem] = []
@@ -26,7 +28,7 @@ final class ReaderViewModel {
     @ObservationIgnored
     private let storage = BookStorageService.shared
     @ObservationIgnored
-    private var navigatorDelegate: NavigatorDelegateHandler?
+    fileprivate var navigatorDelegate: NavigatorDelegateHandler?
     @ObservationIgnored
     private var modelContext: ModelContext?
     @ObservationIgnored
@@ -138,6 +140,63 @@ final class ReaderViewModel {
         synthesizer.stop()
         isPlaying = false
         currentUtteranceText = ""
+    }
+
+    @MainActor
+    func updateTTSPanelHeight(_ height: CGFloat) {
+        navigatorDelegate?.ttsPanelHeight = height
+        // Force content inset update by finding spread views through the view hierarchy
+        forceContentInsetUpdate()
+    }
+
+    @MainActor
+    private func forceContentInsetUpdate() {
+        guard let navView = navigator?.view else { return }
+        let inset = computeContentInset()
+        applyInset(inset, to: navView)
+    }
+
+    @MainActor
+    private func computeContentInset() -> UIEdgeInsets {
+        guard let navView = navigator?.view else { return .zero }
+        // SwiftUI 已处理安全区域，只需为 TTS 面板添加底部边距
+        let panelHeight = navigatorDelegate?.ttsPanelHeight ?? 0
+        return UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: panelHeight,
+            right: 0
+        )
+    }
+
+    private func findNavBarHeight(in view: UIView?) -> CGFloat {
+        guard let view else { return 44 }
+        if let navBar = view as? UINavigationBar {
+            return navBar.frame.height
+        }
+        for subview in view.subviews {
+            let found = findNavBarHeight(in: subview)
+            if found > 0 { return found }
+        }
+        return 0
+    }
+
+    private func applyInset(_ inset: UIEdgeInsets, to view: UIView) {
+        for subview in view.subviews {
+            if let webView = subview as? WKWebView {
+                webView.scrollView.contentInset = inset
+                webView.scrollView.scrollIndicatorInsets = inset
+                for constraint in webView.constraints {
+                    if constraint.firstAttribute == .top {
+                        constraint.constant = inset.top
+                    }
+                    if constraint.firstAttribute == .bottom {
+                        constraint.constant = -inset.bottom
+                    }
+                }
+            }
+            applyInset(inset, to: subview)
+        }
     }
 
     private func saveProgress(locator: Locator) {
@@ -331,6 +390,7 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
 @MainActor
 private class NavigatorDelegateHandler: NSObject, EPUBNavigatorDelegate {
     private let onPageChange: @MainActor (Locator) -> Void
+    var ttsPanelHeight: CGFloat = 0
 
     @MainActor
     init(onPageChange: @escaping @MainActor (Locator) -> Void) {
@@ -346,6 +406,16 @@ private class NavigatorDelegateHandler: NSObject, EPUBNavigatorDelegate {
 
     func navigator(_ navigator: Navigator, presentError error: NavigatorError) {
         // Handle errors silently for now
+    }
+
+    func navigatorContentInset(_ navigator: VisualNavigator) -> UIEdgeInsets? {
+        // SwiftUI 已处理安全区域，只需为 TTS 面板添加底部边距
+        return UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: ttsPanelHeight,
+            right: 0
+        )
     }
 }
 

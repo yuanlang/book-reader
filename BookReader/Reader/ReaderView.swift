@@ -10,17 +10,24 @@ struct ReaderView: View {
     @State private var showTOC = false
 
     var body: some View {
-        ZStack {
+        VStack(spacing: 0) {
+            // EPUB 内容视图
             viewModel.navigatorView
-                .ignoresSafeArea()
 
-            VStack {
-                Spacer()
-                if showTTSPanel || viewModel.isPlaying {
-                    TTSControlPanel(viewModel: viewModel)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
+            // TTS 控制面板
+            if showTTSPanel || viewModel.isPlaying {
+                TTSControlPanel(viewModel: viewModel)
+                    .background(GeometryReader { geo in
+                        Color.clear.preference(
+                            key: TTSPanelHeightPreferenceKey.self,
+                            value: geo.size.height
+                        )
+                    })
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
             }
+        }
+        .onPreferenceChange(TTSPanelHeightPreferenceKey.self) { height in
+            viewModel.ttsPanelHeight = height
         }
         .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.inline)
@@ -117,5 +124,14 @@ private struct TOCSection: View {
                 TOCSection(items: item.children, level: level + 1, onSelect: onSelect)
             }
         }
+    }
+}
+
+// MARK: - Preference Keys
+
+private struct TTSPanelHeightPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
