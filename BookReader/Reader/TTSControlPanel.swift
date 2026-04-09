@@ -13,7 +13,8 @@ struct TTSControlPanel: View {
                 Text(viewModel.currentUtteranceText)
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                    .lineLimit(2)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                     .padding(.horizontal, 16)
             }
 
