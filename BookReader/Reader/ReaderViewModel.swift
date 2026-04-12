@@ -204,13 +204,15 @@ final class ReaderViewModel {
 
         guard let json = locator.jsonString else { return }
 
+        let progression = locator.locations.totalProgression ?? 0
+
         do {
             let descriptor = FetchDescriptor<ReadingProgress>(
                 predicate: #Predicate { $0.bookId == bookId }
             )
             let progress = try context.fetch(descriptor).first ?? ReadingProgress(bookId: bookId)
             progress.locatorJSON = json
-            progress.progress = locator.locations.totalProgression ?? 0
+            progress.progress = progression
             progress.lastUpdated = Date()
 
             if progress.modelContext == nil {
@@ -223,7 +225,6 @@ final class ReaderViewModel {
     }
 
     private func setupTTS(for publication: Publication) {
-        NSLog("[ReaderViewModel] Setting up TTS for publication...")
         let engine = SherpaOnnxTTSEngine()
         self.ttsEngine = engine
         guard let synthesizer = PublicationSpeechSynthesizer(
@@ -234,33 +235,25 @@ final class ReaderViewModel {
             },
             delegate: self
         ) else {
-            NSLog("[ReaderViewModel] ERROR: TTS not available for this publication")
             return
         }
-        NSLog("[ReaderViewModel] TTS synthesizer created successfully")
         self.ttsSynthesizer = synthesizer
     }
 
     // MARK: - TTS Controls
 
     func togglePlayback() {
-        NSLog("[ReaderViewModel] togglePlayback called, synthesizer: \(ttsSynthesizer != nil ? "exists" : "nil")")
         guard let synthesizer = ttsSynthesizer else { return }
-        NSLog("[ReaderViewModel] Current state: \(synthesizer.state)")
         triggerHaptic()
         switch synthesizer.state {
         case .stopped:
-            NSLog("[ReaderViewModel] Starting from first visible element...")
             Task {
                 let locator = await navigator?.firstVisibleElementLocator()
-                NSLog("[ReaderViewModel] Locator: \(locator?.href.string ?? "nil")")
                 synthesizer.start(from: locator)
             }
         case .paused:
-            NSLog("[ReaderViewModel] Resuming...")
             synthesizer.resume()
         case .playing:
-            NSLog("[ReaderViewModel] Pausing...")
             synthesizer.pause()
             ttsEngine?.stopSpeaking()
         }
@@ -354,10 +347,8 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
         _ synthesizer: PublicationSpeechSynthesizer,
         stateDidChange state: PublicationSpeechSynthesizer.State
     ) {
-        NSLog("[ReaderViewModel] State changed to: \(state)")
         switch state {
         case .playing(let utterance, _):
-            NSLog("[ReaderViewModel] Playing: \(utterance.text.prefix(50))")
             isPlaying = true
             currentUtteranceText = utterance.text
             // 同步页面到朗读位置
@@ -365,11 +356,9 @@ extension ReaderViewModel: PublicationSpeechSynthesizerDelegate {
                 await navigator?.go(to: utterance.locator)
             }
         case .paused(let utterance):
-            NSLog("[ReaderViewModel] Paused: \(utterance.text.prefix(50))")
             isPlaying = false
             currentUtteranceText = utterance.text
         case .stopped:
-            NSLog("[ReaderViewModel] Stopped")
             isPlaying = false
             currentUtteranceText = ""
         }

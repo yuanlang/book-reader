@@ -10,26 +10,25 @@ struct ReaderView: View {
     @State private var showTOC = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            // EPUB 内容视图
-            viewModel.navigatorView
-
-            // TTS 控制面板
-            if showTTSPanel || viewModel.isPlaying {
-                TTSControlPanel(viewModel: viewModel)
-                    .background(GeometryReader { geo in
-                        Color.clear.preference(
-                            key: TTSPanelHeightPreferenceKey.self,
-                            value: geo.size.height
-                        )
-                    })
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+        viewModel.navigatorView
+            .ignoresSafeArea()
+            .overlay(alignment: .bottom) {
+                // TTS 控制面板 - 使用 overlay 避免影响内容布局
+                if showTTSPanel || viewModel.isPlaying {
+                    TTSControlPanel(viewModel: viewModel)
+                        .background(GeometryReader { geo in
+                            Color.clear.preference(
+                                key: TTSPanelHeightPreferenceKey.self,
+                                value: geo.size.height
+                            )
+                        })
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
-        }
-        .onPreferenceChange(TTSPanelHeightPreferenceKey.self) { height in
-            viewModel.ttsPanelHeight = height
-        }
-        .navigationTitle(book.title)
+            .onPreferenceChange(TTSPanelHeightPreferenceKey.self) { height in
+                viewModel.ttsPanelHeight = height
+            }
+            .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
