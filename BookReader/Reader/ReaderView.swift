@@ -11,9 +11,8 @@ struct ReaderView: View {
 
     var body: some View {
         viewModel.navigatorView
-            .ignoresSafeArea()
-            .overlay(alignment: .bottom) {
-                // TTS 控制面板 - 使用 overlay 避免影响内容布局
+            .safeAreaInset(edge: .bottom) {
+                // TTS 控制面板 - 使用 safeAreaInset 自动处理内容边距
                 if showTTSPanel || viewModel.isPlaying {
                     TTSControlPanel(viewModel: viewModel)
                         .background(GeometryReader { geo in
@@ -27,6 +26,7 @@ struct ReaderView: View {
             }
             .onPreferenceChange(TTSPanelHeightPreferenceKey.self) { height in
                 viewModel.ttsPanelHeight = height
+                viewModel.updateTTSPanelHeight(height)
             }
             .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.inline)
