@@ -1,6 +1,6 @@
 name: BookReader
 options:
-  bundleIdPrefix: com.bookreader
+  bundleIdPrefix: com.langbookreader
   deploymentTarget:
     iOS: "17.0"
   xcodeVersion: "16.0"
@@ -37,7 +37,7 @@ targets:
         INFOPLIST_KEY_UIStatusBarStyle: ""
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
-        PRODUCT_BUNDLE_IDENTIFIER: com.bookreader.app
+        PRODUCT_BUNDLE_IDENTIFIER: com.langbookreader.app
         SWIFT_OBJC_BRIDGING_HEADER: BookReader/Bridging/BookReader-Bridging-Header.h
         CLANG_CXX_LANGUAGE_STANDARD: "c++17"
         OTHER_LDFLAGS: ["-lc++"]
@@ -66,6 +66,8 @@ targets:
         CFBundleShortVersionString: "1.0.0"
         UIFileSharingEnabled: true
         LSSupportsOpeningDocumentsInPlace: true
+        UILaunchScreen:
+          UIColorName: systemBackground
         CFBundleDocumentTypes:
           - CFBundleTypeName: "EPUB"
             LSHandlerRank: Owner
@@ -80,7 +82,7 @@ targets:
       - target: BookReader
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.bookreader.app.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.langbookreader.app.tests
         GENERATE_INFOPLIST_FILE: YES
 
   BookReaderUITests:
@@ -92,5 +94,5 @@ targets:
       - target: BookReader
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.bookreader.app.uitests
+        PRODUCT_BUNDLE_IDENTIFIER: com.langbookreader.app.uitests
         GENERATE_INFOPLIST_FILE: YES

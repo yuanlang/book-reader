@@ -46,6 +46,7 @@ struct ReaderView: View {
                 }
 
                 Button {
+                    NSLog("[DEBUG] TTS button tapped, showTTSPanel: \(showTTSPanel)")
                     withAnimation(.spring(duration: 0.3)) {
                         showTTSPanel.toggle()
                     }
